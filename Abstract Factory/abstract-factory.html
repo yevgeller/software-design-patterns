@@ -1,13 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Abstract Factory</title>
-    <script src="abstract-factory.js" />
-</head>
-<body>
-    
-</body>
+    <script src="abstract-factory.js"></script>
+    <!--<link rel="stylesheet" href="">-->
+  </head>
+  <body>
+    <h1>Abstract Factory Pattern</h1>
+    <p>Use Abstract Factory when code needs to work with 
+        various families of related products without tight 
+        coupling to the actual concrete classes, because they 
+        are either unknown at the time or may be expanded in the future
+    </p>
+    <p>
+        In this example, we're working with factories of first responders.
+        So far there are Police and Firemen. We can also add Medical teams, 
+        or other teams that follow the same structure. 
+    </p>
+    <p>
+        Things needed for the Abstract Factory:
+        <ol>
+            <li>Explicitly declare interfaces for each distinct piece 
+                of the item family (so Chief, Lieutenant, UnitMember)</li>
+                <li>Make all variants of pieces that follow those interfaces</li>
+                <li>Declare an abstract Factory (ResponderFactory)
+                    with methods to create all items in the family 
+                    (Chief, Lieutenant, UnitMember)
+                </li>
+                <li>Declare a separate factory class for each type of ResponderFactory
+                    And no mixing and matching! 
+                </li>
+        </ol>
+    </p>
+  </body>
 </html>
