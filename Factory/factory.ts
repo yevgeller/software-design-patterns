@@ -26,7 +26,7 @@ namespace SoMuchBetterWithFactory {
     boat,
     coal,
   }
-
+//Creator class
   class ToyFactory {
     makeAToy(typeOfToy: ToyType): Present {
       switch (typeOfToy) {
