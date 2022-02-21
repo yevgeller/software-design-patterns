@@ -106,7 +106,6 @@ namespace SoMuchBetterWithAbstractFactory {
   }
 
   let policeUnit = new PoliceUnitFactory();
-  policeUnit.makeChief();
   console.log(policeUnit.chief.command());
   console.log(policeUnit.lt.manage());
   console.log(policeUnit.unitMember.doStuff());
