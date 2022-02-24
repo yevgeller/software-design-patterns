@@ -114,4 +114,16 @@ namespace SoMuchBetterWithAbstractFactory {
   console.log(fireUnit.chief.command());
   console.log(fireUnit.lt.manage());
   console.log(fireUnit.unitMember.doStuff());
+  //bad code:
+  /*
+  let chief = new FireChief();
+  let lt = new FireLieutenant();
+  let unitMember = new FireMan();
+  let chief2 = new PoliceChief();
+  let lt2 = new PoliceLieutenant();
+  let unitMember2 = new PoliceUnitMember();
+
+  let PoliceUnit = new Unit(chief2, lt, unitMember);
+  let FireMen = new Unit(chief, lt, unitMember);
+  */
 }

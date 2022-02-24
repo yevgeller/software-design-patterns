@@ -1,4 +1,10 @@
 namespace SoMuchBetterWithFactory {
+  class SimpleToyFactory {
+    makeAToy(): ToyCar {
+      return new ToyCar();
+    }
+  }
+
   interface Present {
     whatIsIt(): string;
   }
@@ -26,7 +32,7 @@ namespace SoMuchBetterWithFactory {
     boat,
     coal,
   }
-//Creator class
+  //Creator class
   class ToyFactory {
     makeAToy(typeOfToy: ToyType): Present {
       switch (typeOfToy) {
