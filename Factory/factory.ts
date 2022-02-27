@@ -1,29 +1,33 @@
 namespace SoMuchBetterWithFactory {
-  class SimpleToyFactory {
-    makeAToy(): ToyCar {
-      return new ToyCar();
-    }
-  }
-
   interface Present {
     whatIsIt(): string;
+    play(): string;
   }
 
   class ToyCar implements Present {
     whatIsIt(): string {
       return "This is a toy car";
     }
+    play(): string {
+      return "vroom!!";
+    }
   }
 
   class ToyBoat implements Present {
+    play(): string {
+      return "Off we go!";
+    }
     whatIsIt(): string {
       return "This is a toy boat";
     }
   }
 
   class BagOfCoal implements Present {
+    play(): string {
+      return "You now have a dirty face!";
+    }
     whatIsIt(): string {
-      return "This kid has been naughty";
+      return "Bag of coal";
     }
   }
 
@@ -60,6 +64,8 @@ namespace SoMuchBetterWithFactory {
       order.forEach((x) => {
         let toy = this.toyFactory.makeAToy(x);
         console.log(toy.whatIsIt());
+        console.log(toy.play());
+        console.log();
       });
     }
   }

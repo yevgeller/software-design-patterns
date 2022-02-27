@@ -3,6 +3,10 @@ namespace WhoNeedsAFactory {
     whatIsIt(): void {
       console.log("this is a toy car");
     }
+
+    play(): void {
+      console.log("vroom!!");
+    }
   }
 
   class ToyProductionPlant {
@@ -20,5 +24,5 @@ namespace WhoNeedsAFactory {
 
   let tpp = new ToyProductionPlant();
   let car = tpp.makePresents();
-  car.forEach((x) => x.whatIsIt());
+  car.forEach((x) => x.play());
 }

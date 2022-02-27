@@ -6,6 +6,9 @@ var WhoNeedsAFactory;
         ToyCar.prototype.whatIsIt = function () {
             console.log("this is a toy car");
         };
+        ToyCar.prototype.play = function () {
+            console.log("vroom!!");
+        };
         return ToyCar;
     }());
     var ToyProductionPlant = /** @class */ (function () {
@@ -24,5 +27,5 @@ var WhoNeedsAFactory;
     }());
     var tpp = new ToyProductionPlant();
     var car = tpp.makePresents();
-    car.forEach(function (x) { return x.whatIsIt(); });
+    car.forEach(function (x) { return x.play(); });
 })(WhoNeedsAFactory || (WhoNeedsAFactory = {}));

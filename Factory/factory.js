@@ -6,11 +6,17 @@ var SoMuchBetterWithFactory;
         ToyCar.prototype.whatIsIt = function () {
             return "This is a toy car";
         };
+        ToyCar.prototype.play = function () {
+            return "vroom!!";
+        };
         return ToyCar;
     }());
     var ToyBoat = /** @class */ (function () {
         function ToyBoat() {
         }
+        ToyBoat.prototype.play = function () {
+            return "Off we go!";
+        };
         ToyBoat.prototype.whatIsIt = function () {
             return "This is a toy boat";
         };
@@ -19,8 +25,11 @@ var SoMuchBetterWithFactory;
     var BagOfCoal = /** @class */ (function () {
         function BagOfCoal() {
         }
+        BagOfCoal.prototype.play = function () {
+            return "You now have a dirty face!";
+        };
         BagOfCoal.prototype.whatIsIt = function () {
-            return "This kid has been naughty";
+            return "Bag of coal";
         };
         return BagOfCoal;
     }());
@@ -30,6 +39,7 @@ var SoMuchBetterWithFactory;
         ToyType[ToyType["boat"] = 1] = "boat";
         ToyType[ToyType["coal"] = 2] = "coal";
     })(ToyType || (ToyType = {}));
+    //Creator class
     var ToyFactory = /** @class */ (function () {
         function ToyFactory() {
         }
@@ -57,6 +67,8 @@ var SoMuchBetterWithFactory;
             order.forEach(function (x) {
                 var toy = _this.toyFactory.makeAToy(x);
                 console.log(toy.whatIsIt());
+                console.log(toy.play());
+                console.log();
             });
         };
         return ElvesFactory;
