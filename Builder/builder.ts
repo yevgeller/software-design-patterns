@@ -9,13 +9,33 @@ interface PizzaBuilder {
   bake(): void;
 }
 
-//This is a specific implementation of a product
-//that requires certain steps
-class CheesePizzaBuilderThinCrust16Inches implements PizzaBuilder {
-  private pizza: Pizza;
+class PizzaBase {
+  protected pizza: Pizza;
 
   constructor() {
     this.reset();
+  }
+
+  public reset(): void {
+    this.pizza = new Pizza();
+  }
+
+  public getProduct(): Pizza {
+    const result = this.pizza;
+    this.reset();
+    return result;
+  }
+}
+
+//This is a specific implementation of a product
+//that requires certain steps
+
+
+class CheesePizzaBuilderThinCrust16Inches extends PizzaBase  implements PizzaBuilder {
+  //private pizza: Pizza;
+
+  constructor() {
+    super();
   }
 
   public reset(): void {
@@ -51,11 +71,11 @@ class CheesePizzaBuilderThinCrust16Inches implements PizzaBuilder {
    * you can make your builders wait for an explicit reset call from the
    * client code before disposing of the previous result.
    */
-  public getProduct(): Pizza {
-    const result = this.pizza;
-    this.reset();
-    return result;
-  }
+//   public getProduct(): Pizza {
+//     const result = this.pizza;
+//     this.reset();
+//     return result;
+//   }
 }
 /**
  * It makes sense to use the Builder pattern only when your products are quite
