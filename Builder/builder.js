@@ -1,12 +1,43 @@
-//This is a specific implementation of a product
-//that requires certain steps
-var CheesePizzaBuilderThinCrust16Inches = /** @class */ (function () {
-    function CheesePizzaBuilderThinCrust16Inches() {
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var PizzaBase = /** @class */ (function () {
+    function PizzaBase() {
         this.reset();
     }
-    CheesePizzaBuilderThinCrust16Inches.prototype.reset = function () {
+    PizzaBase.prototype.reset = function () {
         this.pizza = new Pizza();
     };
+    PizzaBase.prototype.getProduct = function () {
+        var result = this.pizza;
+        this.reset();
+        return result;
+    };
+    return PizzaBase;
+}());
+//This is a specific implementation of a product
+//that requires certain steps
+var CheesePizzaBuilderThinCrust16Inches = /** @class */ (function (_super) {
+    __extends(CheesePizzaBuilderThinCrust16Inches, _super);
+    //private pizza: Pizza;
+    function CheesePizzaBuilderThinCrust16Inches() {
+        return _super.call(this) || this;
+    }
+    //   public reset(): void {
+    //     this.pizza = new Pizza();
+    //   }
     CheesePizzaBuilderThinCrust16Inches.prototype.prepareDough = function () {
         this.pizza.parts.push("thin crust, 16 inches");
     };
@@ -20,27 +51,35 @@ var CheesePizzaBuilderThinCrust16Inches = /** @class */ (function () {
     CheesePizzaBuilderThinCrust16Inches.prototype.bake = function () {
         this.pizza.parts.push("bake now");
     };
-    /**
-     * Concrete Builders are supposed to provide their own methods for
-     * retrieving results. That's because various types of builders may create
-     * entirely different products that don't follow the same interface.
-     * Therefore, such methods cannot be declared in the base Builder interface
-     * (at least in a statically typed programming language).
-     *
-     * Usually, after returning the end result to the client, a builder instance
-     * is expected to be ready to start producing another product. That's why
-     * it's a usual practice to call the reset method at the end of the
-     * `getProduct` method body. However, this behavior is not mandatory, and
-     * you can make your builders wait for an explicit reset call from the
-     * client code before disposing of the previous result.
-     */
-    CheesePizzaBuilderThinCrust16Inches.prototype.getProduct = function () {
-        var result = this.pizza;
-        this.reset();
-        return result;
-    };
     return CheesePizzaBuilderThinCrust16Inches;
-}());
+}(PizzaBase));
+var ChicagoDeepDish16InchSupreme = /** @class */ (function (_super) {
+    __extends(ChicagoDeepDish16InchSupreme, _super);
+    function ChicagoDeepDish16InchSupreme() {
+        return _super.call(this) || this;
+    }
+    ChicagoDeepDish16InchSupreme.prototype.prepareDough = function () {
+        this.pizza.parts.push("deep dish crust, 16 inches");
+    };
+    ChicagoDeepDish16InchSupreme.prototype.addSauce = function () {
+        this.pizza.parts.push("marinara sauce");
+    };
+    ChicagoDeepDish16InchSupreme.prototype.addIngredients = function () {
+        this.pizza.parts.push("black olives");
+        this.pizza.parts.push("bell peppers");
+        this.pizza.parts.push("green olives");
+        this.pizza.parts.push("red onions");
+        this.pizza.parts.push("italian sausage");
+        this.pizza.parts.push("kitchen sink");
+    };
+    ChicagoDeepDish16InchSupreme.prototype.addCheese = function () {
+        this.pizza.parts.push("mozzarella, 1x");
+    };
+    ChicagoDeepDish16InchSupreme.prototype.bake = function () {
+        this.pizza.parts.push("bake now");
+    };
+    return ChicagoDeepDish16InchSupreme;
+}(PizzaBase));
 /**
  * It makes sense to use the Builder pattern only when your products are quite
  * complex and require extensive configuration.
@@ -118,6 +157,14 @@ function clientCode(director) {
     builder.addCheese();
     builder.bake();
     builder.getProduct().listParts();
+    var builder2 = new ChicagoDeepDish16InchSupreme();
+    director.setBuilder(builder2);
+    console.log("Chicago deep dish to go");
+    director.prepForTakeOutAndBakeAtHome();
+    builder2.getProduct().listParts();
+    console.log("Chicago deep dish for here");
+    director.prepAndBake();
+    builder2.getProduct().listParts();
 }
 var director = new Director();
 clientCode(director);

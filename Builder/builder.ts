@@ -30,17 +30,19 @@ class PizzaBase {
 //This is a specific implementation of a product
 //that requires certain steps
 
-
-class CheesePizzaBuilderThinCrust16Inches extends PizzaBase  implements PizzaBuilder {
+class CheesePizzaBuilderThinCrust16Inches
+  extends PizzaBase
+  implements PizzaBuilder
+{
   //private pizza: Pizza;
 
   constructor() {
     super();
   }
 
-  public reset(): void {
-    this.pizza = new Pizza();
-  }
+  //   public reset(): void {
+  //     this.pizza = new Pizza();
+  //   }
 
   prepareDough(): void {
     this.pizza.parts.push("thin crust, 16 inches");
@@ -71,11 +73,34 @@ class CheesePizzaBuilderThinCrust16Inches extends PizzaBase  implements PizzaBui
    * you can make your builders wait for an explicit reset call from the
    * client code before disposing of the previous result.
    */
-//   public getProduct(): Pizza {
-//     const result = this.pizza;
-//     this.reset();
-//     return result;
-//   }
+}
+
+class ChicagoDeepDish16InchSupreme extends PizzaBase implements PizzaBuilder {
+  constructor() {
+    super();
+  }
+
+  prepareDough(): void {
+    this.pizza.parts.push("deep dish crust, 16 inches");
+  }
+  addSauce(): void {
+    this.pizza.parts.push("marinara sauce");
+  }
+  addIngredients(): void {
+    this.pizza.parts.push("black olives");
+    this.pizza.parts.push("bell peppers");
+    this.pizza.parts.push("green olives");
+    this.pizza.parts.push("red onions");
+    this.pizza.parts.push("italian sausage");
+    this.pizza.parts.push("kitchen sink");
+  }
+
+  addCheese(): void {
+    this.pizza.parts.push("mozzarella, 1x");
+  }
+  bake(): void {
+    this.pizza.parts.push("bake now");
+  }
 }
 /**
  * It makes sense to use the Builder pattern only when your products are quite
@@ -149,15 +174,25 @@ function clientCode(director: Director) {
   builder.getProduct().listParts();
 
   // Remember, the Builder pattern can be used without a Director class.
-    console.log("Extra cheesy");
-    builder.prepareDough();
-    builder.addSauce();
-    builder.addIngredients();
-    builder.addCheese();
-    builder.addCheese();
-    builder.addCheese();
-    builder.bake();
-    builder.getProduct().listParts();
+  console.log("Extra cheesy");
+  builder.prepareDough();
+  builder.addSauce();
+  builder.addIngredients();
+  builder.addCheese();
+  builder.addCheese();
+  builder.addCheese();
+  builder.bake();
+  builder.getProduct().listParts();
+
+  const builder2 = new ChicagoDeepDish16InchSupreme();
+  director.setBuilder(builder2);
+  console.log("Chicago deep dish to go");
+  director.prepForTakeOutAndBakeAtHome();
+  builder2.getProduct().listParts();
+
+  console.log("Chicago deep dish for here");
+  director.prepAndBake();
+  builder2.getProduct().listParts();
 }
 
 const director = new Director();
