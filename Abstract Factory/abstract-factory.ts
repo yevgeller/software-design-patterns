@@ -23,37 +23,37 @@ namespace SoMuchBetterWithAbstractFactory {
 
   class FireChief implements Chief {
     command(): string {
-      return "Get those hoses right there right away and gimme water!!";
+      return "Fire Chief: Get those hoses right there right away and gimme water!!";
     }
   }
 
   class PoliceChief implements Chief {
     command(): string {
-      return "I need this solved yesterday!";
+      return "Police Chief: I need this solved yesterday!";
     }
   }
 
   class FireLieutenant implements Lieutenant {
     manage(): string {
-      return "Jeeves, get those two hoses right away! Wooster, turn on the water!";
+      return "Fire Lieutenant: Jeeves, get those two hoses right away! Wooster, turn on the water!";
     }
   }
 
   class PoliceLieutenant implements Lieutenant {
     manage(): string {
-      return "I put my two best men on this case.";
+      return "Police Lieutenant: I put my two best men on this case.";
     }
   }
 
   class FireMan implements UnitMember {
     doStuff(): string {
-      return "... (grumble-grumble)";
+      return "Fireman: ... (grumble-grumble)";
     }
   }
 
   class PoliceUnitMember implements UnitMember {
     doStuff(): string {
-      return "Pulling out magnifying glass, I'm on the case!";
+      return "Police unit member: Pulling out magnifying glass, I'm on the case!";
     }
   }
 

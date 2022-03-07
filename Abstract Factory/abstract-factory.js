@@ -4,7 +4,7 @@ var SoMuchBetterWithAbstractFactory;
         function FireChief() {
         }
         FireChief.prototype.command = function () {
-            return "Get those hoses right there right away and gimme water!!";
+            return "Fire Chief: Get those hoses right there right away and gimme water!!";
         };
         return FireChief;
     }());
@@ -12,7 +12,7 @@ var SoMuchBetterWithAbstractFactory;
         function PoliceChief() {
         }
         PoliceChief.prototype.command = function () {
-            return "I need this solved yesterday!";
+            return "Police Chief: I need this solved yesterday!";
         };
         return PoliceChief;
     }());
@@ -20,7 +20,7 @@ var SoMuchBetterWithAbstractFactory;
         function FireLieutenant() {
         }
         FireLieutenant.prototype.manage = function () {
-            return "Jeeves, get those two hoses right away! Wooster, turn on the water!";
+            return "Fire Lieutenant: Jeeves, get those two hoses right away! Wooster, turn on the water!";
         };
         return FireLieutenant;
     }());
@@ -28,7 +28,7 @@ var SoMuchBetterWithAbstractFactory;
         function PoliceLieutenant() {
         }
         PoliceLieutenant.prototype.manage = function () {
-            return "I put my two best men on this case.";
+            return "Police Lieutenant: I put my two best men on this case.";
         };
         return PoliceLieutenant;
     }());
@@ -36,7 +36,7 @@ var SoMuchBetterWithAbstractFactory;
         function FireMan() {
         }
         FireMan.prototype.doStuff = function () {
-            return "... (grumble-grumble)";
+            return "Fireman: ... (grumble-grumble)";
         };
         return FireMan;
     }());
@@ -44,7 +44,7 @@ var SoMuchBetterWithAbstractFactory;
         function PoliceUnitMember() {
         }
         PoliceUnitMember.prototype.doStuff = function () {
-            return "Pulling out magnifying glass, I'm on the case!";
+            return "Police unit member: Pulling out magnifying glass, I'm on the case!";
         };
         return PoliceUnitMember;
     }());
@@ -89,7 +89,6 @@ var SoMuchBetterWithAbstractFactory;
         return PoliceUnitFactory;
     }());
     var policeUnit = new PoliceUnitFactory();
-    policeUnit.makeChief();
     console.log(policeUnit.chief.command());
     console.log(policeUnit.lt.manage());
     console.log(policeUnit.unitMember.doStuff());
@@ -97,4 +96,16 @@ var SoMuchBetterWithAbstractFactory;
     console.log(fireUnit.chief.command());
     console.log(fireUnit.lt.manage());
     console.log(fireUnit.unitMember.doStuff());
+    //bad code:
+    /*
+    let chief = new FireChief();
+    let lt = new FireLieutenant();
+    let unitMember = new FireMan();
+    let chief2 = new PoliceChief();
+    let lt2 = new PoliceLieutenant();
+    let unitMember2 = new PoliceUnitMember();
+  
+    let PoliceUnit = new Unit(chief2, lt, unitMember);
+    let FireMen = new Unit(chief, lt, unitMember);
+    */
 })(SoMuchBetterWithAbstractFactory || (SoMuchBetterWithAbstractFactory = {}));
