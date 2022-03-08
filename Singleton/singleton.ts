@@ -47,4 +47,7 @@ console.log(
   "Has ticket 'def' been used already? ",
   tc1.ticketIsAlreadyInUse("def")
 );
-console.log(tc1 === tc2);
+console.log(
+  "Are both ticket checkers point to the same instance? Is tc1 === tc2?",
+  tc1 === tc2
+);
