@@ -6,7 +6,9 @@ class CSVProvider {
     const line3 = "Jacob,Smith,3";
     const CRLF = "\n";
     const interimResult = [header, line1, line2, line3];
-    return interimResult.join(CRLF);
+    const res = interimResult.join(CRLF);
+    console.log("data in CSV provider\n", res);
+    return res;
   }
 }
 
@@ -17,6 +19,26 @@ class JSONProcessor {
 
   public showJSON(json: string): void {
     console.table(json);
+  }
+}
+
+class Adapter {
+  private csvProvider: CSVProvider;
+  private jsonProcessor: JSONProcessor;
+  constructor() {
+    this.csvProvider = new CSVProvider();
+  }
+  public Magic(): void {
+    const incoming = this.csvProvider.getData().split("\n");
+    console.log("incoming", incoming);
+    const objectProps = incoming[0];
+    console.log(objectProps);
+    let arr = [] as any;
+    for (let i = 1; i < incoming.length; i++) {
+      console.table(incoming[i]);
+      let vals = incoming[i].split(",");
+      console.table(vals);
+    }
   }
 }
 
@@ -37,3 +59,6 @@ let obj3 = {
 };
 let arr = [obj1, obj2, obj3];
 console.table(arr);
+
+let adapter1 = new Adapter();
+adapter1.Magic();
