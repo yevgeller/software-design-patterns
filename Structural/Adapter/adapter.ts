@@ -14,4 +14,26 @@ class JSONProcessor {
   public doSomethingWithJSON(json: string): void {
     console.log(JSON.stringify(json, null, 2));
   }
+
+  public showJSON(json: string): void {
+    console.table(json);
+  }
 }
+
+let obj1 = {
+  firstName: "Alex",
+  lastName: "Jones",
+  age: 23,
+};
+let obj2 = {
+  firstName: "Alex",
+  lastName: "Jones",
+  age: 23,
+};
+let obj3 = {
+  firstName: "Alex",
+  lastName: "Jones",
+  age: 23,
+};
+let arr = [obj1, obj2, obj3];
+console.table(arr);
