@@ -32,14 +32,24 @@ var Adapter = /** @class */ (function () {
     Adapter.prototype.Magic = function () {
         var incoming = this.csvProvider.getData().split("\n");
         console.log("incoming", incoming);
-        var objectProps = incoming[0];
-        console.log(objectProps);
+        var objectProps = incoming[0].split(",");
+        console.log("object props", objectProps);
         var arr = [];
         for (var i = 1; i < incoming.length; i++) {
             console.table(incoming[i]);
             var vals = incoming[i].split(",");
-            console.table(vals);
+            var person = new Object();
+            for (var j = 0; j < objectProps.length; j++) {
+                person[objectProps[j]] = vals[j];
+            }
+            console.log("person", person);
+            arr.push(person);
+            //console.table(vals);
         }
+        console.log("arr", arr);
+        //console.table("arr.table", arr);
+        console.table("arr.people.table", arr.people);
+        console.log(JSON.stringify(arr));
     };
     return Adapter;
 }());
