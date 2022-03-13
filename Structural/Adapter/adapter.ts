@@ -28,7 +28,7 @@ class Adapter {
   constructor() {
     this.csvProvider = new CSVProvider();
   }
-  public Magic(): void {
+  public Magic(): string {
     const incoming = this.csvProvider.getData().split("\n");
     console.log("incoming", incoming);
     const objectProps = incoming[0].split(",");
@@ -45,11 +45,7 @@ class Adapter {
       arr.push(person);
       //console.table(vals);
     }
-
-    console.log("arr", arr);
-    //console.table("arr.table", arr);
-    console.table("arr.people.table", arr.people);
-    console.log(JSON.stringify(arr));
+    return arr;
   }
 }
 
@@ -69,7 +65,7 @@ let obj3 = {
   age: 23,
 };
 let arr = [obj1, obj2, obj3];
-console.table(arr);
 
-let adapter1 = new Adapter();
-adapter1.Magic();
+const adapter1 = new Adapter();
+const jp = new JSONProcessor();
+jp.doSomethingWithJSON(adapter1.Magic());

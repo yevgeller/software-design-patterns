@@ -46,10 +46,7 @@ var Adapter = /** @class */ (function () {
             arr.push(person);
             //console.table(vals);
         }
-        console.log("arr", arr);
-        //console.table("arr.table", arr);
-        console.table("arr.people.table", arr.people);
-        console.log(JSON.stringify(arr));
+        return arr;
     };
     return Adapter;
 }());
@@ -69,6 +66,6 @@ var obj3 = {
     age: 23
 };
 var arr = [obj1, obj2, obj3];
-console.table(arr);
 var adapter1 = new Adapter();
-adapter1.Magic();
+var jp = new JSONProcessor();
+jp.doSomethingWithJSON(adapter1.Magic());
