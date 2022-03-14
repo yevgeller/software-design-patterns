@@ -48,23 +48,7 @@ class Adapter {
   }
 }
 
-let obj1 = {
-  firstName: "Alex",
-  lastName: "Jones",
-  age: 23,
-};
-let obj2 = {
-  firstName: "Alex",
-  lastName: "Jones",
-  age: 23,
-};
-let obj3 = {
-  firstName: "Alex",
-  lastName: "Jones",
-  age: 23,
-};
-let arr = [obj1, obj2, obj3];
-
 const adapter1 = new Adapter();
 const jp = new JSONProcessor();
 jp.doSomethingWithJSON(adapter1.ConvertCsvToJson());
+jp.showJSON(adapter1.ConvertCsvToJson());
