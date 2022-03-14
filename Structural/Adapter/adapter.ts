@@ -1,13 +1,15 @@
 class CSVProvider {
+  public getColumnHeaders(): string {
+    return "FirstName,LastName,Age";
+  }
+
   public getData(): string {
-    const header = "FirstName,LastName,Age";
     const line1 = "John,Smith,25";
     const line2 = "Mary,Smith,25";
     const line3 = "Jacob,Smith,3";
     const CRLF = "\n";
-    const interimResult = [header, line1, line2, line3];
+    const interimResult = [line1, line2, line3];
     const res = interimResult.join(CRLF);
-    console.log("data in CSV provider\n", res);
     return res;
   }
 }
@@ -24,22 +26,19 @@ class JSONProcessor {
 
 class Adapter {
   private csvProvider: CSVProvider;
-  private jsonProcessor: JSONProcessor;
   constructor() {
     this.csvProvider = new CSVProvider();
   }
-  public Magic(): string {
+  public ConvertCsvToJson(): string {
     const incoming = this.csvProvider.getData().split("\n");
-    console.log("incoming", incoming);
-    const objectProps = incoming[0].split(",");
-    console.log("object props", objectProps);
+    const columnHeaders = this.csvProvider.getColumnHeaders().split(",");
     let arr = [] as any;
     for (let i = 1; i < incoming.length; i++) {
       console.table(incoming[i]);
       let vals = incoming[i].split(",");
       const person = new Object();
-      for (let j = 0; j < objectProps.length; j++) {
-        person[objectProps[j]] = vals[j];
+      for (let j = 0; j < columnHeaders.length; j++) {
+        person[columnHeaders[j]] = vals[j];
       }
       console.log("person", person);
       arr.push(person);
@@ -68,4 +67,4 @@ let arr = [obj1, obj2, obj3];
 
 const adapter1 = new Adapter();
 const jp = new JSONProcessor();
-jp.doSomethingWithJSON(adapter1.Magic());
+jp.doSomethingWithJSON(adapter1.ConvertCsvToJson());
