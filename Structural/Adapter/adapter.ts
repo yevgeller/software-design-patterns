@@ -24,6 +24,11 @@ class JSONProcessor {
   }
 }
 
+let jsnp = new JSONProcessor();
+let csvp = new CSVProvider();
+
+jsnp.showJSON(csvp.getData());
+console.log("-----");
 class Adapter {
   private csvProvider: CSVProvider;
   constructor() {
@@ -33,16 +38,13 @@ class Adapter {
     const incoming = this.csvProvider.getData().split("\n");
     const columnHeaders = this.csvProvider.getColumnHeaders().split(",");
     let arr = [] as any;
-    for (let i = 1; i < incoming.length; i++) {
-      console.table(incoming[i]);
+    for (let i = 0; i < incoming.length; i++) {
       let vals = incoming[i].split(",");
       const person = new Object();
       for (let j = 0; j < columnHeaders.length; j++) {
         person[columnHeaders[j]] = vals[j];
       }
-      console.log("person", person);
       arr.push(person);
-      //console.table(vals);
     }
     return arr;
   }

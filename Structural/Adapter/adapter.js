@@ -26,6 +26,10 @@ var JSONProcessor = /** @class */ (function () {
     };
     return JSONProcessor;
 }());
+var jsnp = new JSONProcessor();
+var csvp = new CSVProvider();
+jsnp.showJSON(csvp.getData());
+console.log("-----");
 var Adapter = /** @class */ (function () {
     function Adapter() {
         this.csvProvider = new CSVProvider();
@@ -34,37 +38,18 @@ var Adapter = /** @class */ (function () {
         var incoming = this.csvProvider.getData().split("\n");
         var columnHeaders = this.csvProvider.getColumnHeaders().split(",");
         var arr = [];
-        for (var i = 1; i < incoming.length; i++) {
-            console.table(incoming[i]);
+        for (var i = 0; i < incoming.length; i++) {
             var vals = incoming[i].split(",");
             var person = new Object();
             for (var j = 0; j < columnHeaders.length; j++) {
                 person[columnHeaders[j]] = vals[j];
             }
-            console.log("person", person);
             arr.push(person);
-            //console.table(vals);
         }
         return arr;
     };
     return Adapter;
 }());
-var obj1 = {
-    firstName: "Alex",
-    lastName: "Jones",
-    age: 23
-};
-var obj2 = {
-    firstName: "Alex",
-    lastName: "Jones",
-    age: 23
-};
-var obj3 = {
-    firstName: "Alex",
-    lastName: "Jones",
-    age: 23
-};
-var arr = [obj1, obj2, obj3];
 var adapter1 = new Adapter();
 var jp = new JSONProcessor();
 jp.doSomethingWithJSON(adapter1.ConvertCsvToJson());
