@@ -92,32 +92,59 @@
 
 class CarInterior {
   model: string;
-  interiorMaterial: string;
   interiorColor: string;
-  constructor(model: string, color: string, material: string) {
+  interiorMaterial: string;
+  constructor(model: string) {
     this.model = model;
-    this.interiorMaterial = "any";
-    this.interiorColor = "any";
   }
-
-  getInteriorMaterial = () =>
-    console.log(`base class, ${this.interiorMaterial} material`);
-  getInteriorColor = () =>
-    console.log(`base class, ${this.interiorColor} interior color`);
+  getSummary = () =>
+    console.log(
+      `Model: ${this.model}, ${this.interiorColor} ${this.interiorMaterial} interior.`
+    );
+  //   getInteriorMaterial = () =>
+  //     console.log(
+  //       `Model ${this.model}, ${this.interiorMaterial} interior material`
+  //     );
+  //   getInteriorColor = () =>
+  //     console.log(`Model ${this.model}, ${this.interiorColor} interior color`);
 }
 
-class LeatherInterior extends CarInterior {
-  constructor(model: string, color: string, material: string) {
-    super(model, color, material);
+class BlackLeatherInterior extends CarInterior {
+  constructor(model: string) {
+    super(model);
     this.model = model;
-    this.interiorColor = color;
-    this.interiorMaterial = material;
+    this.interiorColor = "black";
+    this.interiorMaterial = "leather";
   }
-
-  
 }
+class RedLeatherInterior extends CarInterior {
+  constructor(model: string) {
+    super(model);
+    this.model = model;
+    this.interiorColor = "red";
+    this.interiorMaterial = "leather";
+  }
+}
+class BlackClothInterior extends CarInterior {
+  constructor(model: string) {
+    super(model);
+    this.model = model;
+    this.interiorColor = "black";
+    this.interiorMaterial = "cloth";
+  }
+}
+class RedClothInterior extends CarInterior {
+  constructor(model: string) {
+    super(model);
+    this.model = model;
+    this.interiorColor = "red";
+    this.interiorMaterial = "cloth";
+  }
+}
+let bl = new BlackLeatherInterior("A");
+let rc = new RedClothInterior("B");
+let bc = new BlackClothInterior("C");
 
-let li = new LeatherInterior("A", "blue", "leather");
-
-li.getInteriorColor();
-li.getInteriorMaterial();
+bl.getSummary();
+rc.getSummary();
+bc.getSummary();
