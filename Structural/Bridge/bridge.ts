@@ -3,8 +3,8 @@ class Interior {
   seatMaterial: string; //shape: string;
   seatColor: string; //kind: string;
   constructor() {
-      this.seatMaterial = "round";
-      this.seatColor = "cheese";
+    this.seatMaterial = "round";
+    this.seatColor = "cheese";
   }
 }
 
@@ -14,6 +14,12 @@ class BlackLeatherInterior extends Interior {
     super();
     this.seatMaterial = "leather";
     this.seatColor = "black";
+  }
+  moveSeatBack(): void {
+console.log('seat moved back');
+  }
+  reclineSeatBack(): void {
+      console.log('seat reclined back');
   }
 }
 
@@ -49,10 +55,9 @@ class RedClothInterior extends Interior {
 //Implementation/platform -- does the work
 
 class Pizza2 {
-    shape: string;
-
+  shape: string;
 }
-//chef cooking -- 
+//chef cooking --
 //pilot and plane
 /*
 pilot can fly intel missions or can fly against aircraft or destroy land targets or practice flights
@@ -66,3 +71,4 @@ A single home PC
 + doWork() //use VisualStudio or Word
 
 Abstraction: user
+*/
