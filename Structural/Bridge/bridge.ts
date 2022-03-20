@@ -1,55 +1,73 @@
 class Interior {
-  //Pizza
-  seatMaterial: string; //shape: string;
-  seatColor: string; //kind: string;
-  constructor() {
-    this.seatMaterial = "round";
-    this.seatColor = "cheese";
-  }
+  seatMaterial: string;
 }
 
-class BlackLeatherInterior extends Interior {
-  //SquareCheesePizza
-  constructor() {
-    super();
-    this.seatMaterial = "leather";
-    this.seatColor = "black";
-  }
-  moveSeatBack(): void {
-console.log('seat moved back');
-  }
-  reclineSeatBack(): void {
-      console.log('seat reclined back');
-  }
-}
-
-class BlackClothInterior extends Interior {
-  //SquareSupremePizza
+class ClothInterior extends Interior {
   constructor() {
     super();
     this.seatMaterial = "cloth";
+  }
+}
+
+class LeatherInterior extends Interior {
+  constructor() {
+    super();
+    this.seatMaterial = "leather";
+  }
+}
+
+class BlackLeatherInterior extends LeatherInterior {
+  seatColor: string;
+  constructor() {
+    super();
+    this.seatColor = "black";
+  }
+  operate = () => console.log('Black leather');
+}
+
+class BlackClothInterior extends ClothInterior {
+  seatColor: string;
+  constructor() {
+    super();
     this.seatColor = "black";
   }
 }
 
-class RedLeatherInterior extends Interior {
-  //RoundCheesePizza
+class RedLeatherInterior extends LeatherInterior {
+  seatColor: string;
   constructor() {
     super();
-    this.seatMaterial = "leather";
+    this.seatColor = "red"; //duplication
+  }
+}
+
+class RedClothInterior extends ClothInterior {
+  seatColor: string;
+  constructor() {
+    super();
+    this.seatColor = "red"; //duplication
+  }
+}
+
+//what about adding another color? Or another material?
+
+class SeatColor {
+  seatColor: string;
+}
+
+class RedSeatColor extends SeatColor {
+  constructor() {
+    super();
     this.seatColor = "red";
   }
 }
 
-class RedClothInterior extends Interior {
-  //RoundSupremePizza
-  constructor() {
-    super();
-    this.seatMaterial = "cloth";
-    this.seatColor = "red";
-  }
+class BlackSeatColor extends SeatColor {
+    constructor() {
+        super();
+        this.seatColor = "black";
+    }
 }
-
 //need to extract one dimension into
 //Abstraction/interface -- control layer, outsource work to implementation
 //Implementation/platform -- does the work
