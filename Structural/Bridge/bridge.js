@@ -91,63 +91,111 @@ var __extends = (this && this.__extends) || (function () {
 // + doWork() //use VisualStudio or Word
 // Abstraction: user
 // */
-var CarInterior = /** @class */ (function () {
-    function CarInterior(model) {
-        var _this = this;
-        this.getSummary = function () {
-            return console.log("Model: ".concat(_this.model, ", ").concat(_this.interiorColor, " ").concat(_this.interiorMaterial, " interior."));
-        };
-        this.model = model;
-    }
-    return CarInterior;
-}());
-var BlackLeatherInterior = /** @class */ (function (_super) {
-    __extends(BlackLeatherInterior, _super);
-    function BlackLeatherInterior(model) {
-        var _this = _super.call(this, model) || this;
-        _this.model = model;
-        _this.interiorColor = "black";
-        _this.interiorMaterial = "leather";
-        return _this;
-    }
-    return BlackLeatherInterior;
-}(CarInterior));
-var RedLeatherInterior = /** @class */ (function (_super) {
-    __extends(RedLeatherInterior, _super);
-    function RedLeatherInterior(model) {
-        var _this = _super.call(this, model) || this;
-        _this.model = model;
-        _this.interiorColor = "red";
-        _this.interiorMaterial = "leather";
-        return _this;
-    }
-    return RedLeatherInterior;
-}(CarInterior));
-var BlackClothInterior = /** @class */ (function (_super) {
-    __extends(BlackClothInterior, _super);
-    function BlackClothInterior(model) {
-        var _this = _super.call(this, model) || this;
-        _this.model = model;
-        _this.interiorColor = "black";
-        _this.interiorMaterial = "cloth";
-        return _this;
-    }
-    return BlackClothInterior;
-}(CarInterior));
-var RedClothInterior = /** @class */ (function (_super) {
-    __extends(RedClothInterior, _super);
-    function RedClothInterior(model) {
-        var _this = _super.call(this, model) || this;
-        _this.model = model;
-        _this.interiorColor = "red";
-        _this.interiorMaterial = "cloth";
-        return _this;
-    }
-    return RedClothInterior;
-}(CarInterior));
-var bl = new BlackLeatherInterior("A");
-var rc = new RedClothInterior("B");
-var bc = new BlackClothInterior("C");
-bl.getSummary();
-rc.getSummary();
-bc.getSummary();
+var NoBridge;
+(function (NoBridge) {
+    var CarInterior = /** @class */ (function () {
+        function CarInterior(model) {
+            var _this = this;
+            this.getSummary = function () {
+                return console.log("Model: ".concat(_this.model, ", ").concat(_this.interiorColor, " ").concat(_this.interiorMaterial, " interior."));
+            };
+            this.model = model;
+        }
+        return CarInterior;
+    }());
+    var BlackLeatherInterior = /** @class */ (function (_super) {
+        __extends(BlackLeatherInterior, _super);
+        function BlackLeatherInterior(model) {
+            var _this = _super.call(this, model) || this;
+            _this.model = model;
+            _this.interiorColor = "black";
+            _this.interiorMaterial = "leather";
+            return _this;
+        }
+        return BlackLeatherInterior;
+    }(CarInterior));
+    var RedLeatherInterior = /** @class */ (function (_super) {
+        __extends(RedLeatherInterior, _super);
+        function RedLeatherInterior(model) {
+            var _this = _super.call(this, model) || this;
+            _this.model = model;
+            _this.interiorColor = "red";
+            _this.interiorMaterial = "leather";
+            return _this;
+        }
+        return RedLeatherInterior;
+    }(CarInterior));
+    var BlackClothInterior = /** @class */ (function (_super) {
+        __extends(BlackClothInterior, _super);
+        function BlackClothInterior(model) {
+            var _this = _super.call(this, model) || this;
+            _this.model = model;
+            _this.interiorColor = "black";
+            _this.interiorMaterial = "cloth";
+            return _this;
+        }
+        return BlackClothInterior;
+    }(CarInterior));
+    var RedClothInterior = /** @class */ (function (_super) {
+        __extends(RedClothInterior, _super);
+        function RedClothInterior(model) {
+            var _this = _super.call(this, model) || this;
+            _this.model = model;
+            _this.interiorColor = "red";
+            _this.interiorMaterial = "cloth";
+            return _this;
+        }
+        return RedClothInterior;
+    }(CarInterior));
+    var bl = new BlackLeatherInterior("A");
+    var rc = new RedClothInterior("B");
+    var bc = new BlackClothInterior("C");
+    bl.getSummary();
+    rc.getSummary();
+    bc.getSummary();
+})(NoBridge || (NoBridge = {}));
+var WithBridge;
+(function (WithBridge) {
+    var CarInterior = /** @class */ (function () {
+        function CarInterior(model, color, material) {
+            var _this = this;
+            this.getSummary = function () {
+                return console.log("Model: ".concat(_this.model, ", ").concat(_this.interiorColor, " ").concat(_this.interiorMaterial, " interior."));
+            };
+            this.model = model;
+            this.interiorColor = color.interiorColor;
+            this.interiorMaterial = material.interiorMaterial;
+        }
+        return CarInterior;
+    }());
+    var BlackInterior = /** @class */ (function () {
+        function BlackInterior() {
+            this.interiorColor = "black";
+        }
+        return BlackInterior;
+    }());
+    var RedInterior = /** @class */ (function () {
+        function RedInterior() {
+            this.interiorColor = "red";
+        }
+        return RedInterior;
+    }());
+    var LeatherInterior = /** @class */ (function () {
+        function LeatherInterior() {
+            this.interiorMaterial = "leather";
+        }
+        return LeatherInterior;
+    }());
+    var ClothInterior = /** @class */ (function () {
+        function ClothInterior() {
+            this.interiorMaterial = "cloth";
+        }
+        return ClothInterior;
+    }());
+    var bl = new CarInterior("D", new BlackInterior(), new LeatherInterior());
+    var rc = new CarInterior("E", new RedInterior(), new ClothInterior());
+    var bc = new CarInterior("F", new BlackInterior(), new ClothInterior());
+    bl.getSummary();
+    rc.getSummary();
+    bc.getSummary();
+})(WithBridge || (WithBridge = {}));

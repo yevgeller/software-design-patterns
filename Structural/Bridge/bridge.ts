@@ -89,62 +89,122 @@
 
 // Abstraction: user
 // */
+namespace NoBridge {
+  class CarInterior {
+    model: string;
+    interiorColor: string;
+    interiorMaterial: string;
+    constructor(model: string) {
+      this.model = model;
+    }
+    getSummary = () =>
+      console.log(
+        `Model: ${this.model}, ${this.interiorColor} ${this.interiorMaterial} interior.`
+      );
+  }
 
-class CarInterior {
-  model: string;
-  interiorColor: string;
-  interiorMaterial: string;
-  constructor(model: string) {
-    this.model = model;
+  class BlackLeatherInterior extends CarInterior {
+    constructor(model: string) {
+      super(model);
+      this.model = model;
+      this.interiorColor = "black";
+      this.interiorMaterial = "leather";
+    }
   }
-  getSummary = () =>
-    console.log(
-      `Model: ${this.model}, ${this.interiorColor} ${this.interiorMaterial} interior.`
-    );
-  //   getInteriorMaterial = () =>
-  //     console.log(
-  //       `Model ${this.model}, ${this.interiorMaterial} interior material`
-  //     );
-  //   getInteriorColor = () =>
-  //     console.log(`Model ${this.model}, ${this.interiorColor} interior color`);
+  class RedLeatherInterior extends CarInterior {
+    constructor(model: string) {
+      super(model);
+      this.model = model;
+      this.interiorColor = "red";
+      this.interiorMaterial = "leather";
+    }
+  }
+  class BlackClothInterior extends CarInterior {
+    constructor(model: string) {
+      super(model);
+      this.model = model;
+      this.interiorColor = "black";
+      this.interiorMaterial = "cloth";
+    }
+  }
+  class RedClothInterior extends CarInterior {
+    constructor(model: string) {
+      super(model);
+      this.model = model;
+      this.interiorColor = "red";
+      this.interiorMaterial = "cloth";
+    }
+  }
+  let bl = new BlackLeatherInterior("A");
+  let rc = new RedClothInterior("B");
+  let bc = new BlackClothInterior("C");
+
+  bl.getSummary();
+  rc.getSummary();
+  bc.getSummary();
 }
 
-class BlackLeatherInterior extends CarInterior {
-  constructor(model: string) {
-    super(model);
-    this.model = model;
-    this.interiorColor = "black";
-    this.interiorMaterial = "leather";
-  }
-}
-class RedLeatherInterior extends CarInterior {
-  constructor(model: string) {
-    super(model);
-    this.model = model;
-    this.interiorColor = "red";
-    this.interiorMaterial = "leather";
-  }
-}
-class BlackClothInterior extends CarInterior {
-  constructor(model: string) {
-    super(model);
-    this.model = model;
-    this.interiorColor = "black";
-    this.interiorMaterial = "cloth";
-  }
-}
-class RedClothInterior extends CarInterior {
-  constructor(model: string) {
-    super(model);
-    this.model = model;
-    this.interiorColor = "red";
-    this.interiorMaterial = "cloth";
-  }
-}
-let bl = new BlackLeatherInterior("A");
-let rc = new RedClothInterior("B");
-let bc = new BlackClothInterior("C");
+namespace WithBridge {
+  class CarInterior {
+    interiorColor: string;
+    interiorMaterial: string;
+    model: string;
+    constructor(
+      model: string,
+      color: InteriorColor,
+      material: InteriorMaterial
+    ) {
+      this.model = model;
+      this.interiorColor = color.interiorColor;
+      this.interiorMaterial = material.interiorMaterial;
+    }
 
-bl.getSummary();
-rc.getSummary();
-bc.getSummary();
+    getSummary = () =>
+      console.log(
+        `Model: ${this.model}, ${this.interiorColor} ${this.interiorMaterial} interior.`
+      );
+  }
+
+  interface InteriorColor {
+    interiorColor: string;
+  }
+
+  interface InteriorMaterial {
+    interiorMaterial: string;
+  }
+
+  class BlackInterior implements InteriorColor {
+    interiorColor: string;
+    constructor() {
+      this.interiorColor = "black";
+    }
+  }
+  class RedInterior implements InteriorColor {
+    interiorColor: string;
+    constructor() {
+      this.interiorColor = "red";
+    }
+  }
+
+  class LeatherInterior implements InteriorMaterial {
+    constructor() {
+      this.interiorMaterial = "leather";
+    }
+    interiorMaterial: string;
+  }
+
+  class ClothInterior implements InteriorMaterial {
+    interiorMaterial: string;
+    constructor() {
+      this.interiorMaterial = "cloth";
+    }
+  }
+
+  let bl = new CarInterior("D", new BlackInterior(), new LeatherInterior());
+  let rc = new CarInterior("E", new RedInterior(), new ClothInterior());
+  let bc = new CarInterior("F", new BlackInterior(), new ClothInterior());
+
+  bl.getSummary();
+  rc.getSummary();
+  bc.getSummary();
+}
