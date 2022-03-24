@@ -43,28 +43,28 @@ var __extends = (this && this.__extends) || (function () {
 //     this.seatColor = "black";
 //   }
 // }
-// class RedLeatherInterior extends LeatherInterior {
+// class BeigeLeatherInterior extends LeatherInterior {
 //   seatColor: string;
 //   constructor() {
 //     super();
-//     this.seatColor = "red"; //duplication
+//     this.seatColor = "beige"; //duplication
 //   }
 // }
-// class RedClothInterior extends ClothInterior {
+// class BeigeClothInterior extends ClothInterior {
 //   seatColor: string;
 //   constructor() {
 //     super();
-//     this.seatColor = "red"; //duplication
+//     this.seatColor = "beige"; //duplication
 //   }
 // }
 // //what about adding another color? Or another material?
 // class SeatColor {
 //   seatColor: string;
 // }
-// class RedSeatColor extends SeatColor {
+// class BeigeSeatColor extends SeatColor {
 //   constructor() {
 //     super();
-//     this.seatColor = "red";
+//     this.seatColor = "beige";
 //   }
 // }
 // class BlackSeatColor extends SeatColor {
@@ -114,16 +114,16 @@ var NoBridge;
         }
         return BlackLeatherInterior;
     }(CarInterior));
-    var RedLeatherInterior = /** @class */ (function (_super) {
-        __extends(RedLeatherInterior, _super);
-        function RedLeatherInterior(model) {
+    var BeigeLeatherInterior = /** @class */ (function (_super) {
+        __extends(BeigeLeatherInterior, _super);
+        function BeigeLeatherInterior(model) {
             var _this = _super.call(this, model) || this;
             _this.model = model;
-            _this.interiorColor = "red";
+            _this.interiorColor = "beige";
             _this.interiorMaterial = "leather";
             return _this;
         }
-        return RedLeatherInterior;
+        return BeigeLeatherInterior;
     }(CarInterior));
     var BlackClothInterior = /** @class */ (function (_super) {
         __extends(BlackClothInterior, _super);
@@ -136,19 +136,19 @@ var NoBridge;
         }
         return BlackClothInterior;
     }(CarInterior));
-    var RedClothInterior = /** @class */ (function (_super) {
-        __extends(RedClothInterior, _super);
-        function RedClothInterior(model) {
+    var BeigeClothInterior = /** @class */ (function (_super) {
+        __extends(BeigeClothInterior, _super);
+        function BeigeClothInterior(model) {
             var _this = _super.call(this, model) || this;
             _this.model = model;
-            _this.interiorColor = "red";
+            _this.interiorColor = "beige";
             _this.interiorMaterial = "cloth";
             return _this;
         }
-        return RedClothInterior;
+        return BeigeClothInterior;
     }(CarInterior));
     var bl = new BlackLeatherInterior("A");
-    var rc = new RedClothInterior("B");
+    var rc = new BeigeClothInterior("B");
     var bc = new BlackClothInterior("C");
     bl.getSummary();
     rc.getSummary();
@@ -174,11 +174,11 @@ var WithBridge;
         }
         return BlackInterior;
     }());
-    var RedInterior = /** @class */ (function () {
-        function RedInterior() {
-            this.interiorColor = "red";
+    var BeigeInterior = /** @class */ (function () {
+        function BeigeInterior() {
+            this.interiorColor = "beige";
         }
-        return RedInterior;
+        return BeigeInterior;
     }());
     var LeatherInterior = /** @class */ (function () {
         function LeatherInterior() {
@@ -193,7 +193,7 @@ var WithBridge;
         return ClothInterior;
     }());
     var bl = new CarInterior("D", new BlackInterior(), new LeatherInterior());
-    var rc = new CarInterior("E", new RedInterior(), new ClothInterior());
+    var rc = new CarInterior("E", new BeigeInterior(), new ClothInterior());
     var bc = new CarInterior("F", new BlackInterior(), new ClothInterior());
     bl.getSummary();
     rc.getSummary();
