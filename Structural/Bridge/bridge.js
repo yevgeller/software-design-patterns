@@ -1,6 +1,3 @@
-// class Interior {
-//   seatMaterial: string;
-// }
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -16,81 +13,6 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-// class ClothInterior extends Interior {
-//   constructor() {
-//     super();
-//     this.seatMaterial = "cloth";
-//   }
-// }
-// class LeatherInterior extends Interior {
-//   constructor() {
-//     super();
-//     this.seatMaterial = "leather";
-//   }
-// }
-// class BlackLeatherInterior extends LeatherInterior {
-//   seatColor: string;
-//   constructor() {
-//     super();
-//     this.seatColor = "black";
-//   }
-//   operate = () => console.log('Black leather');
-// }
-// class BlackClothInterior extends ClothInterior {
-//   seatColor: string;
-//   constructor() {
-//     super();
-//     this.seatColor = "black";
-//   }
-// }
-// class BeigeLeatherInterior extends LeatherInterior {
-//   seatColor: string;
-//   constructor() {
-//     super();
-//     this.seatColor = "beige"; //duplication
-//   }
-// }
-// class BeigeClothInterior extends ClothInterior {
-//   seatColor: string;
-//   constructor() {
-//     super();
-//     this.seatColor = "beige"; //duplication
-//   }
-// }
-// //what about adding another color? Or another material?
-// class SeatColor {
-//   seatColor: string;
-// }
-// class BeigeSeatColor extends SeatColor {
-//   constructor() {
-//     super();
-//     this.seatColor = "beige";
-//   }
-// }
-// class BlackSeatColor extends SeatColor {
-//     constructor() {
-//         super();
-//         this.seatColor = "black";
-//     }
-// }
-// //need to extract one dimension into
-// //Abstraction/interface -- control layer, outsource work to implementation
-// //Implementation/platform -- does the work
-// class Pizza2 {
-//   shape: string;
-// }
-// //chef cooking --
-// //pilot and plane
-// /*
-// pilot can fly intel missions or can fly against aircraft or destroy land targets or practice flights
-// plane can have weapons, can have missiles, guns, extra fuel
-// implementation
-// A single home PC
-// + playAGame()
-// + sendEmail() //different e-mail application, gmail or Outlook
-// + doWork() //use VisualStudio or Word
-// Abstraction: user
-// */
 var NoBridge;
 (function (NoBridge) {
     var CarInterior = /** @class */ (function () {
@@ -160,11 +82,11 @@ var WithBridge;
         function CarInterior(model, color, material) {
             var _this = this;
             this.getSummary = function () {
-                return console.log("Model: ".concat(_this.model, ", ").concat(_this.interiorColor, " ").concat(_this.interiorMaterial, " interior."));
+                return console.log("Model: ".concat(_this.model, ", ").concat(_this.interiorColor.interiorColor, " ").concat(_this.interiorMaterial.interiorMaterial, " interior."));
             };
             this.model = model;
-            this.interiorColor = color.interiorColor;
-            this.interiorMaterial = material.interiorMaterial;
+            this.interiorColor = color;
+            this.interiorMaterial = material;
         }
         return CarInterior;
     }());
@@ -192,10 +114,18 @@ var WithBridge;
         }
         return ClothInterior;
     }());
+    var ClothLeatherComboInterior = /** @class */ (function () {
+        function ClothLeatherComboInterior() {
+            this.interiorMaterial = "cloth/leather combo";
+        }
+        return ClothLeatherComboInterior;
+    }());
     var bl = new CarInterior("D", new BlackInterior(), new LeatherInterior());
     var rc = new CarInterior("E", new BeigeInterior(), new ClothInterior());
     var bc = new CarInterior("F", new BlackInterior(), new ClothInterior());
+    var rcl = new CarInterior("G", new BeigeInterior(), new ClothLeatherComboInterior());
     bl.getSummary();
     rc.getSummary();
     bc.getSummary();
+    rcl.getSummary();
 })(WithBridge || (WithBridge = {}));

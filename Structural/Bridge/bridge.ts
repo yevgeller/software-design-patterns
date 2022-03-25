@@ -55,8 +55,8 @@ namespace NoBridge {
 
 namespace WithBridge {
   class CarInterior {
-    interiorColor: string;
-    interiorMaterial: string;
+    interiorColor: InteriorColor;
+    interiorMaterial: InteriorMaterial;
     model: string;
     constructor(
       model: string,
@@ -64,13 +64,13 @@ namespace WithBridge {
       material: InteriorMaterial
     ) {
       this.model = model;
-      this.interiorColor = color.interiorColor;
-      this.interiorMaterial = material.interiorMaterial;
+      this.interiorColor = color;
+      this.interiorMaterial = material;
     }
 
     getSummary = () =>
       console.log(
-        `Model: ${this.model}, ${this.interiorColor} ${this.interiorMaterial} interior.`
+        `Model: ${this.model}, ${this.interiorColor.interiorColor} ${this.interiorMaterial.interiorMaterial} interior.`
       );
   }
 
@@ -109,11 +109,20 @@ namespace WithBridge {
     }
   }
 
+  class ClothLeatherComboInterior implements InteriorMaterial {
+    interiorMaterial: string;
+    constructor() {
+      this.interiorMaterial = "cloth/leather combo";
+    }
+  }
+
   let bl = new CarInterior("D", new BlackInterior(), new LeatherInterior());
   let rc = new CarInterior("E", new BeigeInterior(), new ClothInterior());
   let bc = new CarInterior("F", new BlackInterior(), new ClothInterior());
+  let rcl = new CarInterior("G", new BeigeInterior(), new ClothLeatherComboInterior());
 
   bl.getSummary();
   rc.getSummary();
   bc.getSummary();
+  rcl.getSummary();
 }
