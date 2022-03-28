@@ -46,8 +46,23 @@ class Composite extends Component {
   }
 }
 
-let root = new Composite("root");
+const root = new Composite("root");
 root.add(new Leaf("Leaf A"));
 root.add(new Leaf("Leaf B"));
+
+const comp1 = new Composite("Composite C1");
+comp1.add(new Leaf("Leaf C1-A"));
+comp1.add(new Leaf("Leaf C1-B"));
+
+const comp2 = new Composite("Composite C2");
+comp2.add(new Leaf("Leaf C2-A"));
+comp1.add(comp2);
+
+root.add(comp1);
+root.add(new Leaf("Leaf C"));
+
+let leaf = new Leaf("Leaf D");
+root.add(leaf);
+root.remove(leaf);
 
 root.primaryOperation(1);
