@@ -73,5 +73,5 @@ root.add(comp1);
 root.add(new Leaf("Leaf C"));
 var leaf = new Leaf("Leaf D");
 root.add(leaf);
-//root.remove(leaf);
+root.remove(leaf);
 root.primaryOperation(1);
