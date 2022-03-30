@@ -1,8 +1,6 @@
 class Component {
   name: string;
   primaryOperation(depth: number): void {}
-  add(component: Component): void {}
-  remove(component: Component): void {}
 
   constructor(name: string) {
     this.name = name;
@@ -15,15 +13,8 @@ class Leaf extends Component {
     super(name);
     this.name = name;
   }
-  primaryOperation(depth: number): void {
+  primaryOperation = (depth: number): void =>
     console.log(Array(depth).join("-") + this.name);
-  }
-  add(component: Component): void {
-    throw new Error("Method not implemented.");
-  }
-  remove(component: Component): void {
-    throw new Error("Method not implemented.");
-  }
 }
 
 class Composite extends Component {
@@ -38,12 +29,13 @@ class Composite extends Component {
     console.log(Array(depth).join("-") + this.name);
     this.components.forEach((x) => x.primaryOperation(depth + 2));
   }
-  add(component: Component): void {
-    this.components.push(component);
-  }
-  remove(component: Component): void {
-    this.components = this.components.filter((x) => x.name !== component.name);
-  }
+
+  add = (component: Component): number => this.components.push(component);
+
+  remove = (component: Component): Component[] =>
+    (this.components = this.components.filter(
+      (x) => x.name !== component.name
+    ));
 }
 
 const root = new Composite("root");

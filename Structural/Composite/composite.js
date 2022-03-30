@@ -18,8 +18,6 @@ var Component = /** @class */ (function () {
         this.name = name;
     }
     Component.prototype.primaryOperation = function (depth) { };
-    Component.prototype.add = function (component) { };
-    Component.prototype.remove = function (component) { };
     return Component;
 }());
 var Leaf = /** @class */ (function (_super) {
@@ -32,18 +30,16 @@ var Leaf = /** @class */ (function (_super) {
     Leaf.prototype.primaryOperation = function (depth) {
         console.log(Array(depth).join("-") + this.name);
     };
-    Leaf.prototype.add = function (component) {
-        throw new Error("Method not implemented.");
-    };
-    Leaf.prototype.remove = function (component) {
-        throw new Error("Method not implemented.");
-    };
     return Leaf;
 }(Component));
 var Composite = /** @class */ (function (_super) {
     __extends(Composite, _super);
     function Composite(name) {
         var _this = _super.call(this, name) || this;
+        _this.add = function (component) { return _this.components.push(component); };
+        _this.remove = function (component) {
+            return (_this.components = _this.components.filter(function (x) { return x.name !== component.name; }));
+        };
         _this.name = name;
         _this.components = [];
         return _this;
@@ -51,12 +47,6 @@ var Composite = /** @class */ (function (_super) {
     Composite.prototype.primaryOperation = function (depth) {
         console.log(Array(depth).join("-") + this.name);
         this.components.forEach(function (x) { return x.primaryOperation(depth + 2); });
-    };
-    Composite.prototype.add = function (component) {
-        this.components.push(component);
-    };
-    Composite.prototype.remove = function (component) {
-        this.components = this.components.filter(function (x) { return x.name !== component.name; });
     };
     return Composite;
 }(Component));
@@ -75,3 +65,10 @@ root.add(new Leaf("Leaf 3"));
 // root.add(leaf);
 // root.remove(leaf);
 root.primaryOperation(1);
+var FileSystemBuilder = /** @class */ (function () {
+    function FileSystemBuilder(rootCompositeName) {
+        this.rootComposite = new Composite(rootCompositeName);
+        this.currentDirectory = this.rootComposite;
+    }
+    return FileSystemBuilder;
+}());
