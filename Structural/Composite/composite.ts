@@ -58,3 +58,25 @@ root.add(new Leaf("Leaf 3"));
 // root.remove(leaf);
 
 root.primaryOperation(1);
+
+class FileSystemBuilder {
+  rootComposite: Composite;
+  currentDirectory: Composite;
+  constructor(rootCompositeName: string) {
+    this.rootComposite = new Composite(rootCompositeName);
+    this.currentDirectory = this.rootComposite;
+  }
+
+  addCompositeItem(name: string): Composite {
+    let comp = new Composite(name);
+    this.currentDirectory.add(comp);
+    this.currentDirectory = comp;
+    return comp;
+  }
+
+  addLeaf(name: string): Leaf {
+    let leaf = new Leaf(name);
+    this.currentDirectory.add(leaf);
+    return leaf;
+  }
+}
