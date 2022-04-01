@@ -111,5 +111,4 @@ builder.addLeaf("right 2");
 builder.setCurrentComposite("center");
 builder.addCompositeItem("sub-center");
 builder.addLeaf("sub-center leaf");
-builder.setCurrentComposite("satoheu");
 builder.rootComposite.primaryOperation(1);
