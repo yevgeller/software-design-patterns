@@ -91,7 +91,7 @@ class FileSystemBuilder {
       stack.push(...compositesOfCurrent);
     }
     throw new Error(
-      `Composite name ${compositeName} does not exist in the current hierarchy`
+      `Composite name '${compositeName}' does not exist in the current hierarchy`
     );
   }
 }
