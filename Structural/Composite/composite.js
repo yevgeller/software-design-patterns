@@ -90,7 +90,7 @@ var FileSystemBuilder = /** @class */ (function () {
             var compositesOfCurrent = current.components.filter(function (x) { return typeof x.add === "function"; });
             stack.push.apply(stack, compositesOfCurrent);
         }
-        //throw new Error($`Composite name {compositeName} does not exist in the current hierarchy');
+        throw new Error("Composite name ".concat(compositeName, " does not exist in the current hierarchy"));
     };
     return FileSystemBuilder;
 }());
@@ -109,4 +109,5 @@ builder.addLeaf("right 2");
 builder.setCurrentComposite("center");
 builder.addCompositeItem("sub-center");
 builder.addLeaf("sub-center leaf");
+builder.setCurrentComposite("satoheu");
 builder.rootComposite.primaryOperation(1);

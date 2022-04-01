@@ -90,7 +90,9 @@ class FileSystemBuilder {
       );
       stack.push(...compositesOfCurrent);
     }
-    //throw new Error($`Composite name {compositeName} does not exist in the current hierarchy');
+    throw new Error(
+      `Composite name ${compositeName} does not exist in the current hierarchy`
+    );
   }
 }
 
@@ -109,4 +111,5 @@ builder.addLeaf("right 2");
 builder.setCurrentComposite("center");
 builder.addCompositeItem("sub-center");
 builder.addLeaf("sub-center leaf");
+builder.setCurrentComposite("satoheu");
 builder.rootComposite.primaryOperation(1);
