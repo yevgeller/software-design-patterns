@@ -53,10 +53,6 @@ comp1.add(comp2);
 root.add(comp1);
 root.add(new Leaf("Leaf 3"));
 
-// let leaf = new Leaf("Leaf 4");
-// root.add(leaf);
-// root.remove(leaf);
-
 root.primaryOperation(1);
 
 class FileSystemBuilder {
@@ -78,5 +74,22 @@ class FileSystemBuilder {
     let leaf = new Leaf(name);
     this.currentDirectory.add(leaf);
     return leaf;
+  }
+
+  setCurrentComposite(compositeName: string): Composite {
+    let stack = [];
+    stack.push(this.rootComposite);
+    while (stack.length > 0) {
+      let current = stack.pop();
+      if (current.name === compositeName) {
+        this.currentDirectory = current;
+        return current;
+      }
+      let compositesOfCurrent = current.components.filter(
+        (x) => typeof x.add === "function"
+      );
+      stack.push(...compositesOfCurrent);
+    }
+    //throw new Error($`Composite name {compositeName} does not exist in the current hierarchy');
   }
 }
