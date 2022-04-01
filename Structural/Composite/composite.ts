@@ -93,3 +93,20 @@ class FileSystemBuilder {
     //throw new Error($`Composite name {compositeName} does not exist in the current hierarchy');
   }
 }
+
+const builder = new FileSystemBuilder("top");
+builder.addCompositeItem("left");
+builder.addLeaf("left 1");
+builder.addLeaf("left 2");
+builder.setCurrentComposite("top");
+builder.addCompositeItem("center");
+builder.addLeaf("center 1");
+builder.addLeaf("center 2");
+builder.setCurrentComposite("top");
+builder.addCompositeItem("right");
+builder.addLeaf("right 1");
+builder.addLeaf("right 2");
+builder.setCurrentComposite("center");
+builder.addCompositeItem("sub-center");
+builder.addLeaf("sub-center leaf");
+builder.rootComposite.primaryOperation(1);

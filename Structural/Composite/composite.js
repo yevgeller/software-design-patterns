@@ -24,12 +24,12 @@ var Leaf = /** @class */ (function (_super) {
     __extends(Leaf, _super);
     function Leaf(name) {
         var _this = _super.call(this, name) || this;
+        _this.primaryOperation = function (depth) {
+            return console.log(Array(depth).join("-") + _this.name);
+        };
         _this.name = name;
         return _this;
     }
-    Leaf.prototype.primaryOperation = function (depth) {
-        console.log(Array(depth).join("-") + this.name);
-    };
     return Leaf;
 }(Component));
 var Composite = /** @class */ (function (_super) {
@@ -61,14 +61,52 @@ comp2.add(new Leaf("Sub-Subtree 1 Leaf 1"));
 comp1.add(comp2);
 root.add(comp1);
 root.add(new Leaf("Leaf 3"));
-// let leaf = new Leaf("Leaf 4");
-// root.add(leaf);
-// root.remove(leaf);
 root.primaryOperation(1);
 var FileSystemBuilder = /** @class */ (function () {
     function FileSystemBuilder(rootCompositeName) {
         this.rootComposite = new Composite(rootCompositeName);
         this.currentDirectory = this.rootComposite;
     }
+    FileSystemBuilder.prototype.addCompositeItem = function (name) {
+        var comp = new Composite(name);
+        this.currentDirectory.add(comp);
+        this.currentDirectory = comp;
+        return comp;
+    };
+    FileSystemBuilder.prototype.addLeaf = function (name) {
+        var leaf = new Leaf(name);
+        this.currentDirectory.add(leaf);
+        return leaf;
+    };
+    FileSystemBuilder.prototype.setCurrentComposite = function (compositeName) {
+        var stack = [];
+        stack.push(this.rootComposite);
+        while (stack.length > 0) {
+            var current = stack.pop();
+            if (current.name === compositeName) {
+                this.currentDirectory = current;
+                return current;
+            }
+            var compositesOfCurrent = current.components.filter(function (x) { return typeof x.add === "function"; });
+            stack.push.apply(stack, compositesOfCurrent);
+        }
+        //throw new Error($`Composite name {compositeName} does not exist in the current hierarchy');
+    };
     return FileSystemBuilder;
 }());
+var builder = new FileSystemBuilder("top");
+builder.addCompositeItem("left");
+builder.addLeaf("left 1");
+builder.addLeaf("left 2");
+builder.setCurrentComposite("top");
+builder.addCompositeItem("center");
+builder.addLeaf("center 1");
+builder.addLeaf("center 2");
+builder.setCurrentComposite("top");
+builder.addCompositeItem("right");
+builder.addLeaf("right 1");
+builder.addLeaf("right 2");
+builder.setCurrentComposite("center");
+builder.addCompositeItem("sub-center");
+builder.addLeaf("sub-center leaf");
+builder.rootComposite.primaryOperation(1);
