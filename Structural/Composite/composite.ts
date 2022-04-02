@@ -17,7 +17,7 @@ class Leaf extends Component {
     console.log(Array(depth).join("-") + this.name);
 }
 
-class Composite extends Component {
+class Branch extends Component {
   name: string;
   components: Component[];
   constructor(name: string) {
@@ -38,15 +38,15 @@ class Composite extends Component {
     ));
 }
 
-const root = new Composite("root");
+const root = new Branch("root");
 root.add(new Leaf("Leaf 1"));
 root.add(new Leaf("Leaf 2"));
 
-const comp1 = new Composite("Subtree 1");
+const comp1 = new Branch("Subtree 1");
 comp1.add(new Leaf("Subtree 1 Leaf 1"));
 comp1.add(new Leaf("Subtree 1 Leaf 2"));
 
-const comp2 = new Composite("Sub-Subtree 1");
+const comp2 = new Branch("Sub-Subtree 1");
 comp2.add(new Leaf("Sub-Subtree 1 Leaf 1"));
 comp1.add(comp2);
 
@@ -55,60 +55,60 @@ root.add(new Leaf("Leaf 3"));
 
 root.primaryOperation(1);
 
-class FileSystemBuilder {
-  rootComposite: Composite;
-  currentDirectory: Composite;
-  constructor(rootCompositeName: string) {
-    this.rootComposite = new Composite(rootCompositeName);
-    this.currentDirectory = this.rootComposite;
+class ComponentTreeBuilder {
+  rootComponent: Branch;
+  currentComponent: Branch;
+  constructor(rootComponentName: string) {
+    this.rootComponent = new Branch(rootComponentName);
+    this.currentComponent = this.rootComponent;
   }
 
-  addCompositeItem(name: string): Composite {
-    let comp = new Composite(name);
-    this.currentDirectory.add(comp);
-    this.currentDirectory = comp;
+  addComponentItem(name: string): Branch {
+    let comp = new Branch(name);
+    this.currentComponent.add(comp);
+    this.currentComponent = comp;
     return comp;
   }
 
   addLeaf(name: string): Leaf {
     let leaf = new Leaf(name);
-    this.currentDirectory.add(leaf);
+    this.currentComponent.add(leaf);
     return leaf;
   }
 
-  setCurrentComposite(compositeName: string): Composite {
+  setCurrentComponent(branchName: string): Branch {
     let stack = [];
-    stack.push(this.rootComposite);
+    stack.push(this.rootComponent);
     while (stack.length > 0) {
       let current = stack.pop();
-      if (current.name === compositeName) {
-        this.currentDirectory = current;
+      if (current.name === branchName) {
+        this.currentComponent = current;
         return current;
       }
-      let compositesOfCurrent = current.components.filter(
+      let branchesOfCurrent = current.components.filter(
         (x) => typeof x.add === "function"
       );
-      stack.push(...compositesOfCurrent);
+      stack.push(...branchesOfCurrent);
     }
     throw new Error(
-      `Composite name '${compositeName}' does not exist in the current hierarchy`
+      `Component name '${branchName}' does not exist in the current hierarchy`
     );
   }
 }
 
-const builder = new FileSystemBuilder("top");
-builder.addCompositeItem("left");
+const builder = new ComponentTreeBuilder("top");
+builder.addComponentItem("left");
 builder.addLeaf("left 1");
 builder.addLeaf("left 2");
-builder.setCurrentComposite("top");
-builder.addCompositeItem("center");
+builder.setCurrentComponent("top");
+builder.addComponentItem("center");
 builder.addLeaf("center 1");
 builder.addLeaf("center 2");
-builder.setCurrentComposite("top");
-builder.addCompositeItem("right");
+builder.setCurrentComponent("top");
+builder.addComponentItem("right");
 builder.addLeaf("right 1");
 builder.addLeaf("right 2");
-builder.setCurrentComposite("center");
-builder.addCompositeItem("sub-center");
+builder.setCurrentComponent("center");
+builder.addComponentItem("sub-center");
 builder.addLeaf("sub-center leaf");
-builder.rootComposite.primaryOperation(1);
+builder.rootComponent.primaryOperation(1);
