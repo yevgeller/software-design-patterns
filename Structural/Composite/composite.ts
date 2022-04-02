@@ -96,18 +96,18 @@ class ComponentTreeBuilder {
   }
 }
 
-const builder = new ComponentTreeBuilder("top");
-builder.addComponentItem("left");
-builder.addLeaf("left 1");
-builder.addLeaf("left 2");
-builder.setCurrentComponent("top");
+const builder = new ComponentTreeBuilder("root");
+builder.addComponentItem("left branch");
+builder.addLeaf("left branch leaf 1");
+builder.addLeaf("left branch leaf 2");
+builder.setCurrentComponent("root");
 builder.addComponentItem("center");
-builder.addLeaf("center 1");
-builder.addLeaf("center 2");
-builder.setCurrentComponent("top");
+builder.addLeaf("center branch leaf 1");
+builder.addLeaf("center branch leaf 2");
+builder.setCurrentComponent("root");
 builder.addComponentItem("right");
-builder.addLeaf("right 1");
-builder.addLeaf("right 2");
+builder.addLeaf("right branch leaf 1");
+builder.addLeaf("right branch leaf 2");
 builder.setCurrentComponent("center");
 builder.addComponentItem("sub-center");
 builder.addLeaf("sub-center leaf");
