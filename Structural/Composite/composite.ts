@@ -91,24 +91,24 @@ class ComponentTreeBuilder {
       stack.push(...branchesOfCurrent);
     }
     throw new Error(
-      `Component name '${branchName}' does not exist in the current hierarchy`
+      `Component name "${branchName}" does not exist in the current hierarchy`
     );
   }
 }
 
 const builder = new ComponentTreeBuilder("root");
 builder.addComponentItem("left branch");
-builder.addLeaf("left branch leaf 1");
-builder.addLeaf("left branch leaf 2");
+builder.addLeaf("left branch, leaf 1");
+builder.addLeaf("left branch, leaf 2");
 builder.setCurrentComponent("root");
-builder.addComponentItem("center");
-builder.addLeaf("center branch leaf 1");
-builder.addLeaf("center branch leaf 2");
+builder.addComponentItem("center branch");
+builder.addLeaf("center branch, leaf 1");
+builder.addLeaf("center branch, leaf 2");
 builder.setCurrentComponent("root");
-builder.addComponentItem("right");
-builder.addLeaf("right branch leaf 1");
-builder.addLeaf("right branch leaf 2");
-builder.setCurrentComponent("center");
-builder.addComponentItem("sub-center");
-builder.addLeaf("sub-center leaf");
+builder.addComponentItem("right branch");
+builder.addLeaf("right branch, leaf 1");
+builder.addLeaf("right branch, leaf 2");
+builder.setCurrentComponent("center branch");
+builder.addComponentItem("sub-center branch");
+builder.addLeaf("sub-center branch, leaf 1");
 builder.rootComponent.primaryOperation(1);
