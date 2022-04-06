@@ -21,7 +21,6 @@ class SimulatedApi {
 
 let a = new SimulatedApi();
 
-//console.log(a.makeRequest());
 console.log(Date.now());
 a.makeRequest();
 console.log(Date.now());
