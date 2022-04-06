@@ -1,3 +1,7 @@
+//define interface
+//change class to implement
+//create new class
+//add logging
 var SimulatedApi = /** @class */ (function () {
     function SimulatedApi() {
         var _this = this;
