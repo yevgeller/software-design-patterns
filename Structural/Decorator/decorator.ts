@@ -24,3 +24,20 @@ let a = new SimulatedApi();
 console.log(Date.now());
 a.makeRequest();
 console.log(Date.now());
+
+//extracting Interface
+
+interface MakingSimulatedApiCalls {
+  makeRequest(): void;
+}
+
+class SimulatedApiWithLogging implements MakingSimulatedApiCalls {
+  simulatedApi: SimulatedApi;
+  constructor(simulatedApi: SimulatedApi) {
+    this.simulatedApi = simulatedApi;
+  }
+
+  makeRequest(): void {
+    this.simulatedApi.makeRequest();
+  }
+}
