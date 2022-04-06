@@ -20,7 +20,17 @@ var SimulatedApi = /** @class */ (function () {
     return SimulatedApi;
 }());
 var a = new SimulatedApi();
-//console.log(a.makeRequest());
 console.log(Date.now());
 a.makeRequest();
 console.log(Date.now());
+//generating a class for logging: Single Responsibility Principle.
+//This class logs, SimulatedApi "makes" API calls
+var SimulatedApiWithLogging = /** @class */ (function () {
+    function SimulatedApiWithLogging(simulatedApi) {
+        this.simulatedApi = simulatedApi;
+    }
+    SimulatedApiWithLogging.prototype.makeRequest = function () {
+        this.simulatedApi.makeRequest();
+    };
+    return SimulatedApiWithLogging;
+}());

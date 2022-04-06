@@ -26,11 +26,12 @@ a.makeRequest();
 console.log(Date.now());
 
 //extracting Interface
-
 interface MakingSimulatedApiCalls {
   makeRequest(): void;
 }
 
+//generating a class for logging: Single Responsibility Principle.
+//This class logs, SimulatedApi "makes" API calls
 class SimulatedApiWithLogging implements MakingSimulatedApiCalls {
   simulatedApi: SimulatedApi;
   constructor(simulatedApi: SimulatedApi) {
