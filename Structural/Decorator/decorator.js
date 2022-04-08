@@ -30,36 +30,27 @@ var SimulatedApiWithLogging = /** @class */ (function () {
             console.log("endDate: ", _this.endDate);
             return _this;
         };
-        // reject = () => new Error("makeRequest did not work!");
-        this.requestPromise = new es6_promise_1.Promise(function (resolve, reject) {
-            this.simulatedApi.makeRequest();
-        });
         this.simulatedApi = simulatedApi;
     }
+    // reject = () => new Error("makeRequest did not work!");
+    // requestPromise = new Promise(function (resolve, reject) {
+    //   this.simulatedApi.makeRequest();
+    // });
     SimulatedApiWithLogging.prototype.makePromise = function () {
         var _this = this;
-        return new es6_promise_1.Promise(function (a, b) {
-            _this.simulatedApi.makeRequest();
+        return new es6_promise_1.Promise(function (resolve, reject) {
+            resolve(_this.simulatedApi.makeRequest());
         });
     };
     SimulatedApiWithLogging.prototype.makeRequest = function () {
         console.log("before pro");
-        var pro = this.makePromise();
-        pro.then(this.recordEndDate).then(function () { return console.log("after pro"); });
-    };
-    SimulatedApiWithLogging.prototype.makeRequest2 = function () {
-        var _this = this;
         this.startDate = Date.now();
         console.log("startDate: ", this.startDate);
-        var promise = new es6_promise_1.Promise(function (resolve, reject) {
-            _this.simulatedApi.makeRequest();
-        })
-            //.then(this.resolve)
-            .then(function () { return console.log("endDate finished: ", _this.endDate); });
-        promise.then(function () { return (_this.endDate = Date.now()); });
-        console.log("endDate: ", this.endDate);
+        var pro = this.makePromise();
+        pro.then(this.recordEndDate).then(function () { return console.log("after pro"); }); //why is this not being called?
     };
     return SimulatedApiWithLogging;
 }());
 var b = new SimulatedApiWithLogging(a);
 b.makeRequest();
+//--need to add logging, what am I doing wrong?
