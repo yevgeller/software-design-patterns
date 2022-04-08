@@ -32,10 +32,6 @@ var SimulatedApiWithLogging = /** @class */ (function () {
         };
         this.simulatedApi = simulatedApi;
     }
-    // reject = () => new Error("makeRequest did not work!");
-    // requestPromise = new Promise(function (resolve, reject) {
-    //   this.simulatedApi.makeRequest();
-    // });
     SimulatedApiWithLogging.prototype.makePromise = function () {
         var _this = this;
         return new es6_promise_1.Promise(function (resolve, reject) {
@@ -43,11 +39,12 @@ var SimulatedApiWithLogging = /** @class */ (function () {
         });
     };
     SimulatedApiWithLogging.prototype.makeRequest = function () {
+        var _this = this;
         console.log("before pro");
         this.startDate = Date.now();
         console.log("startDate: ", this.startDate);
         var pro = this.makePromise();
-        pro.then(this.recordEndDate).then(function () { return console.log("after pro"); }); //why is this not being called?
+        pro.then(function () { return _this.recordEndDate; }); //.then(() => console.log("after pro"));
     };
     return SimulatedApiWithLogging;
 }());

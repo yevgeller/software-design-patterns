@@ -42,11 +42,6 @@ class SimulatedApiWithLogging implements MakingSimulatedApiCalls {
     console.log("endDate: ", this.endDate);
     return this;
   };
-  // reject = () => new Error("makeRequest did not work!");
-
-  // requestPromise = new Promise(function (resolve, reject) {
-  //   this.simulatedApi.makeRequest();
-  // });
 
   makePromise(): any {
     return new Promise((resolve, reject) => {
@@ -54,23 +49,12 @@ class SimulatedApiWithLogging implements MakingSimulatedApiCalls {
     });
   }
 
-  makeRequest(): any {
-    console.log("before pro");
+  makeRequest(): void {
     this.startDate = Date.now();
     console.log("startDate: ", this.startDate);
     const pro = this.makePromise();
-    pro.then(this.recordEndDate).then(() => console.log("after pro")); //why is this not being called?
+    pro.then(() => this.recordEndDate); //.then(() => console.log("after pro"));
   }
-
-  // makeRequest2(): any {
-  //   const promise = new Promise((resolve, reject) => {
-  //     this.simulatedApi.makeRequest();
-  //   })
-  //     //.then(this.resolve)
-  //     .then(() => console.log("endDate finished: ", this.endDate));
-  //   promise.then(() => (this.endDate = Date.now()));
-  //   console.log("endDate: ", this.endDate);
-  // }
 }
 
 let b = new SimulatedApiWithLogging(a);
