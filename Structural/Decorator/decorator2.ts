@@ -1,5 +1,3 @@
-//import { Promise } from "es6-promise";
-
 class SimulatedApi {
   makeRequest = async (): Promise<any> =>
     new Promise((resolve) =>
@@ -14,22 +12,22 @@ class SimulatedApi {
 
   getTimeout = () => {
     const delay = Math.random() * (5 - 1) + 1;
-    console.log("delay (ms): ", delay * 1000);
+    //console.log("delay (ms): ", Math.round(delay * 1000));
     return delay;
   };
 }
 
 interface MakingSimulatedApiCalls {
-  makeRequest(): any;
+  makeRequest(): Promise<any>;
 }
 
 //generating a class for logging: Single Responsibility Principle.
 //This class logs, SimulatedApi "makes" API calls
 class SimulatedApiWithLogging implements MakingSimulatedApiCalls {
-  simulatedApi: SimulatedApi;
+  simulatedApi: MakingSimulatedApiCalls;
   startDate: number;
   endDate: number;
-  constructor(simulatedApi: SimulatedApi) {
+  constructor(simulatedApi: MakingSimulatedApiCalls) {
     this.simulatedApi = simulatedApi;
   }
 
@@ -38,10 +36,6 @@ class SimulatedApiWithLogging implements MakingSimulatedApiCalls {
     const responseData = await this.simulatedApi.makeRequest();
     this.endDate = Date.now();
     console.log("time taken: ", this.endDate - this.startDate);
-    console.log(responseData);
+    console.log("response", responseData);
   }
 }
-
-let a = new SimulatedApi();
-let b = new SimulatedApiWithLogging(a);
-b.makeRequest();

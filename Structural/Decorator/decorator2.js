@@ -1,4 +1,3 @@
-//import { Promise } from "es6-promise";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -53,7 +52,7 @@ var SimulatedApi = /** @class */ (function () {
         ]; };
         this.getTimeout = function () {
             var delay = Math.random() * (5 - 1) + 1;
-            console.log("delay: ", delay);
+            //console.log("delay (ms): ", Math.round(delay * 1000));
             return delay;
         };
     }
@@ -77,7 +76,7 @@ var SimulatedApiWithLogging = /** @class */ (function () {
                         responseData = _a.sent();
                         this.endDate = Date.now();
                         console.log("time taken: ", this.endDate - this.startDate);
-                        console.log(responseData);
+                        console.log("response", responseData);
                         return [2 /*return*/];
                 }
             });
@@ -85,6 +84,3 @@ var SimulatedApiWithLogging = /** @class */ (function () {
     };
     return SimulatedApiWithLogging;
 }());
-var a = new SimulatedApi();
-var b = new SimulatedApiWithLogging(a);
-b.makeRequest();
