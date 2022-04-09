@@ -38,11 +38,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var SimulatedApi = /** @class */ (function () {
     function SimulatedApi() {
         var _this = this;
-        this.makeRequest = function () {
-            setTimeout(function () {
-                console.log(_this.getData());
-            }, _this.getTimeout() * 1000);
-        };
+        this.makeRequest = function () { return __awaiter(_this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve) {
+                        return setTimeout(function () { return resolve(_this.getData()); }, _this.getTimeout() * 1000);
+                    })];
+            });
+        }); };
         this.getData = function () { return [
             { name: "John Johnson", age: 32 },
             { name: "Jane Johnson", age: 32 },
@@ -60,15 +63,17 @@ var SimulatedApiWithLogging = /** @class */ (function () {
     }
     SimulatedApiWithLogging.prototype.makeRequest = function () {
         return __awaiter(this, void 0, void 0, function () {
+            var responseData;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         this.startDate = Date.now();
                         return [4 /*yield*/, this.simulatedApi.makeRequest()];
                     case 1:
-                        _a.sent();
+                        responseData = _a.sent();
                         this.endDate = Date.now();
                         console.log("time taken: ", this.endDate - this.startDate);
+                        console.log(responseData);
                         return [2 /*return*/];
                 }
             });

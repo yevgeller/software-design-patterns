@@ -1,11 +1,10 @@
 //import { Promise } from "es6-promise";
 
 class SimulatedApi {
-  makeRequest = (): void => {
-    setTimeout(() => {
-      console.log(this.getData());
-    }, this.getTimeout() * 1000);
-  };
+  makeRequest = async (): Promise<any> =>
+    new Promise((resolve) =>
+      setTimeout(() => resolve(this.getData()), this.getTimeout() * 1000)
+    );
 
   getData = () => [
     { name: "John Johnson", age: 32 },
@@ -13,7 +12,11 @@ class SimulatedApi {
     { name: "Jim Johnson", age: 10 },
   ];
 
-  getTimeout = () => Math.random() * (5 - 1) + 1;
+  getTimeout = () => {
+    const delay = Math.random() * (5 - 1) + 1;
+    console.log("delay: ", delay);
+    return delay;
+  };
 }
 
 interface MakingSimulatedApiCalls {
@@ -32,9 +35,10 @@ class SimulatedApiWithLogging implements MakingSimulatedApiCalls {
 
   async makeRequest(): Promise<any> {
     this.startDate = Date.now();
-    await this.simulatedApi.makeRequest();
+    const responseData = await this.simulatedApi.makeRequest();
     this.endDate = Date.now();
     console.log("time taken: ", this.endDate - this.startDate);
+    console.log(responseData);
   }
 }
 
