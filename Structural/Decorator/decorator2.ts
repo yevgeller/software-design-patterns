@@ -39,3 +39,41 @@ class SimulatedApiWithLogging implements MakingSimulatedApiCalls {
     console.log("response", responseData);
   }
 }
+
+let a = new SimulatedApi();
+let b = new SimulatedApiWithLogging(a);
+// b.makeRequest();
+
+class SimulatedApiWithCaching implements MakingSimulatedApiCalls {
+  data: any[] = [];
+  api: MakingSimulatedApiCalls;
+
+  constructor(api: MakingSimulatedApiCalls) {
+    this.api = api;
+  }
+
+  async makeRequest(): Promise<any> {
+    if (this.data.length === 0) {
+      console.log("actually making a request");
+      const result = await this.api.makeRequest();
+      this.data.push(result);
+      console.log("data is set", this.data);
+    } else {
+      console.log("from cache");
+      await console.log(this.data);
+      return this.data;
+    }
+  }
+}
+
+let c = new SimulatedApiWithCaching(b);
+console.log("---  request 1 ---");
+const result1 = c.makeRequest();
+console.log("result1", result1);
+setTimeout(() => {
+  console.log("---  request 2 ---");
+  const result2 = c.makeRequest();
+  console.log("result2", result2);
+}, 10000);
+// console.log("request 3");
+// c.makeRequest();
