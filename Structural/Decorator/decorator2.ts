@@ -14,7 +14,7 @@ class SimulatedApi {
 
   getTimeout = () => {
     const delay = Math.random() * (5 - 1) + 1;
-    console.log("delay: ", delay);
+    console.log("delay (ms): ", delay * 1000);
     return delay;
   };
 }

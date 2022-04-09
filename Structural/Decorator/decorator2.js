@@ -51,7 +51,11 @@ var SimulatedApi = /** @class */ (function () {
             { name: "Jane Johnson", age: 32 },
             { name: "Jim Johnson", age: 10 },
         ]; };
-        this.getTimeout = function () { return Math.random() * (5 - 1) + 1; };
+        this.getTimeout = function () {
+            var delay = Math.random() * (5 - 1) + 1;
+            console.log("delay: ", delay);
+            return delay;
+        };
     }
     return SimulatedApi;
 }());
