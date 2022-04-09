@@ -84,3 +84,49 @@ var SimulatedApiWithLogging = /** @class */ (function () {
     };
     return SimulatedApiWithLogging;
 }());
+var a = new SimulatedApi();
+var b = new SimulatedApiWithLogging(a);
+// b.makeRequest();
+var SimulatedApiWithCaching = /** @class */ (function () {
+    function SimulatedApiWithCaching(api) {
+        this.data = [];
+        this.api = api;
+    }
+    SimulatedApiWithCaching.prototype.makeRequest = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (!(this.data.length === 0)) return [3 /*break*/, 2];
+                        console.log("actually making a request");
+                        return [4 /*yield*/, this.api.makeRequest()];
+                    case 1:
+                        result = _a.sent();
+                        this.data.push(result);
+                        console.log("data is set", this.data);
+                        return [3 /*break*/, 4];
+                    case 2:
+                        console.log("from cache");
+                        return [4 /*yield*/, console.log(this.data)];
+                    case 3:
+                        _a.sent();
+                        return [2 /*return*/, this.data];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    return SimulatedApiWithCaching;
+}());
+var c = new SimulatedApiWithCaching(b);
+console.log("---  request 1 ---");
+var result1 = c.makeRequest();
+console.log("result1", result1);
+setTimeout(function () {
+    console.log("---  request 2 ---");
+    var result2 = c.makeRequest();
+    console.log("result2", result2);
+}, 10000);
+// console.log("request 3");
+// c.makeRequest();

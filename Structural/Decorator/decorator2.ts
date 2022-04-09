@@ -74,6 +74,6 @@ setTimeout(() => {
   console.log("---  request 2 ---");
   const result2 = c.makeRequest();
   console.log("result2", result2);
-}, 10000);
+}, 5000);
 // console.log("request 3");
 // c.makeRequest();
