@@ -1,4 +1,4 @@
-"use strict";
+//import { Promise } from "es6-promise";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,8 +35,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-exports.__esModule = true;
-var es6_promise_1 = require("es6-promise");
 var SimulatedApi = /** @class */ (function () {
     function SimulatedApi() {
         var _this = this;
@@ -54,56 +52,30 @@ var SimulatedApi = /** @class */ (function () {
     }
     return SimulatedApi;
 }());
-var a = new SimulatedApi();
 //generating a class for logging: Single Responsibility Principle.
 //This class logs, SimulatedApi "makes" API calls
 var SimulatedApiWithLogging = /** @class */ (function () {
     function SimulatedApiWithLogging(simulatedApi) {
-        var _this = this;
-        this.recordEndDate = function () {
-            _this.endDate = Date.now();
-            console.log("endDate: ", _this.endDate);
-            return _this;
-        };
-        this.showDiff = function () {
-            console.log("time taken: ", _this.endDate - _this.startDate);
-        };
-        this.fakeResponseData = {
-            numbers: [0, 1, 2, 3, 4, 5]
-        };
         this.simulatedApi = simulatedApi;
     }
-    SimulatedApiWithLogging.prototype.makePromise = function () {
-        var _this = this;
-        // return new Promise((resolve, reject) => {
-        //   resolve(this.simulatedApi.makeRequest());
-        // });
-        return new es6_promise_1.Promise(function (resolve) {
-            // simulate a wait of 1500ms, then resolve the promise
-            // with fake data
-            setTimeout(function () { return resolve(_this.fakeResponseData); }, 1500);
-        });
-    };
     SimulatedApiWithLogging.prototype.makeRequest = function () {
-        return __awaiter(this, void 0, es6_promise_1.Promise, function () {
-            var result;
+        return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         this.startDate = Date.now();
-                        console.log("startDate: ", this.startDate);
                         return [4 /*yield*/, this.simulatedApi.makeRequest()];
                     case 1:
-                        result = _a.sent();
-                        this.recordEndDate();
-                        console.log(this.showDiff());
-                        return [2 /*return*/, es6_promise_1.Promise.resolve(true)];
+                        _a.sent();
+                        this.endDate = Date.now();
+                        console.log("time taken: ", this.endDate - this.startDate);
+                        return [2 /*return*/];
                 }
             });
         });
     };
     return SimulatedApiWithLogging;
 }());
+var a = new SimulatedApi();
 var b = new SimulatedApiWithLogging(a);
 b.makeRequest();
-//--need to add logging, what am I doing wrong?

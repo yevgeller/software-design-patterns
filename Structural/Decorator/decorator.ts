@@ -38,22 +38,42 @@ class SimulatedApiWithLogging implements MakingSimulatedApiCalls {
   }
   recordEndDate = () => {
     this.endDate = Date.now();
-    console.log("in recordEndDate");
     console.log("endDate: ", this.endDate);
     return this;
   };
 
+  showDiff = () => {
+    console.log("time taken: ", this.endDate - this.startDate);
+  };
+  fakeResponseData = {
+    numbers: [0, 1, 2, 3, 4, 5],
+  };
   makePromise(): any {
-    return new Promise((resolve, reject) => {
-      resolve(this.simulatedApi.makeRequest());
+    // return new Promise((resolve, reject) => {
+    //   resolve(this.simulatedApi.makeRequest());
+    // });
+    return new Promise((resolve) => {
+      // simulate a wait of 1500ms, then resolve the promise
+      // with fake data
+      setTimeout(() => resolve(this.fakeResponseData), 1500);
     });
   }
 
-  makeRequest(): void {
+  public async makeRequest(): Promise<any> {
     this.startDate = Date.now();
     console.log("startDate: ", this.startDate);
-    const pro = this.makePromise();
-    pro.then(() => this.recordEndDate); //.then(() => console.log("after pro"));
+    const result = await this.simulatedApi.makeRequest();
+    this.recordEndDate();
+    console.log(this.showDiff());
+    return Promise.resolve(result);
+    // this.makePromise()
+    //   .then((response) => {
+    //     console.log(response);
+    //     this.recordEndDate();
+    //   })
+    //   .then(() => console.log("diff", this.endDate - this.startDate));
+    //const pro = this.makePromise();
+    //pro.then((result) => this.recordEndDate);
   }
 }
 
