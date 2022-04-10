@@ -46,8 +46,20 @@ let b = new SimulatedApiWithLogging(a);
 // b.makeRequest();
 
 interface ICacheAccessor {
-  setCache([]: any): void;
-  getCache(): [];
+  data: any[];
+  setCache(incomingData: Array<{}>): void;
+  getCache: () => Array<{}>;
+  hasData(): boolean;
+}
+
+class SimpleCacheAccessor implements ICacheAccessor {
+  hasData = () => this.data.length > 0;
+  setCache(incomingData: {}[]): void {
+    this.data = incomingData;
+  }
+  getCache = () => this.data;
+  data: any[] = [];
+  //getCache = () => return this.data;
 }
 
 class SimulatedApiWithCaching implements IMakingSimulatedApiCalls {
