@@ -76,8 +76,8 @@ var SimulatedApiWithLogging = /** @class */ (function () {
                         responseData = _a.sent();
                         this.endDate = Date.now();
                         console.log("time taken: ", this.endDate - this.startDate);
-                        console.log("response", responseData);
-                        return [2 /*return*/];
+                        //console.log("response", responseData);
+                        return [2 /*return*/, new Promise(function (resolve) { return resolve(responseData); })];
                 }
             });
         });
@@ -104,15 +104,13 @@ var SimulatedApiWithCaching = /** @class */ (function () {
                     case 1:
                         result = _a.sent();
                         this.data.push(result);
-                        console.log("data is set", this.data);
-                        return [3 /*break*/, 4];
+                        console.log("data is set: ", this.data);
+                        return [3 /*break*/, 3];
                     case 2:
                         console.log("from cache");
-                        return [4 /*yield*/, console.log(this.data)];
-                    case 3:
-                        _a.sent();
+                        console.log(this.data);
                         return [2 /*return*/, this.data];
-                    case 4: return [2 /*return*/];
+                    case 3: return [2 /*return*/];
                 }
             });
         });
@@ -121,12 +119,12 @@ var SimulatedApiWithCaching = /** @class */ (function () {
 }());
 var c = new SimulatedApiWithCaching(b);
 console.log("---  request 1 ---");
-var result1 = c.makeRequest();
-console.log("result1", result1);
+c.makeRequest();
+//console.log("result1", result1);
 setTimeout(function () {
     console.log("---  request 2 ---");
-    var result2 = c.makeRequest();
-    console.log("result2", result2);
-}, 10000);
+    c.makeRequest();
+    // console.log("result2", result2);
+}, 5000);
 // console.log("request 3");
 // c.makeRequest();

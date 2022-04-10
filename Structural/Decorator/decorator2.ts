@@ -17,17 +17,17 @@ class SimulatedApi {
   };
 }
 
-interface MakingSimulatedApiCalls {
+interface IMakingSimulatedApiCalls {
   makeRequest(): Promise<any>;
 }
 
 //generating a class for logging: Single Responsibility Principle.
 //This class logs, SimulatedApi "makes" API calls
-class SimulatedApiWithLogging implements MakingSimulatedApiCalls {
-  simulatedApi: MakingSimulatedApiCalls;
+class SimulatedApiWithLogging implements IMakingSimulatedApiCalls {
+  simulatedApi: IMakingSimulatedApiCalls;
   startDate: number;
   endDate: number;
-  constructor(simulatedApi: MakingSimulatedApiCalls) {
+  constructor(simulatedApi: IMakingSimulatedApiCalls) {
     this.simulatedApi = simulatedApi;
   }
 
@@ -36,7 +36,8 @@ class SimulatedApiWithLogging implements MakingSimulatedApiCalls {
     const responseData = await this.simulatedApi.makeRequest();
     this.endDate = Date.now();
     console.log("time taken: ", this.endDate - this.startDate);
-    console.log("response", responseData);
+    //console.log("response", responseData);
+    return new Promise((resolve) => resolve(responseData));
   }
 }
 
@@ -44,12 +45,19 @@ let a = new SimulatedApi();
 let b = new SimulatedApiWithLogging(a);
 // b.makeRequest();
 
-class SimulatedApiWithCaching implements MakingSimulatedApiCalls {
-  data: any[] = [];
-  api: MakingSimulatedApiCalls;
+interface ICacheAccessor {
+  setCache([]: any): void;
+  getCache(): [];
+}
 
-  constructor(api: MakingSimulatedApiCalls) {
+class SimulatedApiWithCaching implements IMakingSimulatedApiCalls {
+  data: any[] = [];
+  api: IMakingSimulatedApiCalls;
+  cacheAccessor: ICacheAccessor;
+
+  constructor(api: IMakingSimulatedApiCalls, cacheAccessor: ICacheAccessor) {
     this.api = api;
+    this.cacheAccessor = cacheAccessor;
   }
 
   async makeRequest(): Promise<any> {
@@ -57,10 +65,10 @@ class SimulatedApiWithCaching implements MakingSimulatedApiCalls {
       console.log("actually making a request");
       const result = await this.api.makeRequest();
       this.data.push(result);
-      console.log("data is set", this.data);
+      console.log("data is set: ", this.data);
     } else {
       console.log("from cache");
-      await console.log(this.data);
+      console.log(this.data);
       return this.data;
     }
   }
@@ -68,12 +76,12 @@ class SimulatedApiWithCaching implements MakingSimulatedApiCalls {
 
 let c = new SimulatedApiWithCaching(b);
 console.log("---  request 1 ---");
-const result1 = c.makeRequest();
-console.log("result1", result1);
+c.makeRequest();
+//console.log("result1", result1);
 setTimeout(() => {
   console.log("---  request 2 ---");
-  const result2 = c.makeRequest();
-  console.log("result2", result2);
+  c.makeRequest();
+  // console.log("result2", result2);
 }, 5000);
 // console.log("request 3");
 // c.makeRequest();
