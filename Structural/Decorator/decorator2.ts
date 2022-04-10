@@ -46,10 +46,10 @@ let b = new SimulatedApiWithLogging(a);
 // b.makeRequest();
 
 interface ICacheAccessor {
-  data: any[];
   setCache(incomingData: Array<{}>): void;
   getCache: () => Array<{}>;
   hasData(): boolean;
+  showData(): any[];
 }
 
 class SimpleCacheAccessor implements ICacheAccessor {
@@ -59,11 +59,11 @@ class SimpleCacheAccessor implements ICacheAccessor {
   }
   getCache = () => this.data;
   data: any[] = [];
+  showData = () => this.data;
   //getCache = () => return this.data;
 }
 
 class SimulatedApiWithCaching implements IMakingSimulatedApiCalls {
-  data: any[] = [];
   api: IMakingSimulatedApiCalls;
   cacheAccessor: ICacheAccessor;
 
@@ -73,15 +73,15 @@ class SimulatedApiWithCaching implements IMakingSimulatedApiCalls {
   }
 
   async makeRequest(): Promise<any> {
-    if (this.data.length === 0) {
+    if (this.cacheAccessor.hasData()) {
       console.log("actually making a request");
       const result = await this.api.makeRequest();
-      this.data.push(result);
-      console.log("data is set: ", this.data);
+      this.cacheAccessor.setCache(result);
+      console.log("data is set: ", this.cacheAccessor.showData());
     } else {
       console.log("from cache");
-      console.log(this.data);
-      return this.data;
+      console.log(this.cacheAccessor.showData());
+      return this.cacheAccessor.showData();
     }
   }
 }
