@@ -86,11 +86,27 @@ var SimulatedApiWithLogging = /** @class */ (function () {
 }());
 var a = new SimulatedApi();
 var b = new SimulatedApiWithLogging(a);
-// b.makeRequest();
-var SimulatedApiWithCaching = /** @class */ (function () {
-    function SimulatedApiWithCaching(api) {
+var SimpleCacheAccessor = /** @class */ (function () {
+    function SimpleCacheAccessor() {
+        var _this = this;
+        this.getCache = function () { return _this.data; };
         this.data = [];
+        this.showData = function () { return _this.data; };
+    }
+    SimpleCacheAccessor.prototype.setCache = function (incomingData) {
+        this.data = incomingData;
+    };
+    //getCache = () => return this.data;
+    SimpleCacheAccessor.prototype.hasData = function () {
+        console.log("data.length", this.data.length);
+        return this.data.length > 0;
+    };
+    return SimpleCacheAccessor;
+}());
+var SimulatedApiWithCaching = /** @class */ (function () {
+    function SimulatedApiWithCaching(api, cacheAccessor) {
         this.api = api;
+        this.cacheAccessor = cacheAccessor;
     }
     SimulatedApiWithCaching.prototype.makeRequest = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -98,18 +114,19 @@ var SimulatedApiWithCaching = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (!(this.data.length === 0)) return [3 /*break*/, 2];
+                        console.log("cacheAccessor has data", this.cacheAccessor.hasData());
+                        if (!!this.cacheAccessor.hasData()) return [3 /*break*/, 2];
                         console.log("actually making a request");
                         return [4 /*yield*/, this.api.makeRequest()];
                     case 1:
                         result = _a.sent();
-                        this.data.push(result);
-                        console.log("data is set: ", this.data);
+                        this.cacheAccessor.setCache(result);
+                        console.log("data is set: ", this.cacheAccessor.showData());
                         return [3 /*break*/, 3];
                     case 2:
                         console.log("from cache");
-                        console.log(this.data);
-                        return [2 /*return*/, this.data];
+                        console.log(this.cacheAccessor.showData());
+                        return [2 /*return*/, this.cacheAccessor.showData()];
                     case 3: return [2 /*return*/];
                 }
             });
@@ -117,7 +134,8 @@ var SimulatedApiWithCaching = /** @class */ (function () {
     };
     return SimulatedApiWithCaching;
 }());
-var c = new SimulatedApiWithCaching(b);
+var cacheAccessor = new SimpleCacheAccessor();
+var c = new SimulatedApiWithCaching(b, cacheAccessor);
 console.log("---  request 1 ---");
 c.makeRequest();
 //console.log("result1", result1);
