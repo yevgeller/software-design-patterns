@@ -77,8 +77,7 @@ class SimulatedApiWithCaching implements IMakingSimulatedApiCalls {
 
   async makeRequest(): Promise<any> {
     console.log("cacheAccessor has data", this.cacheAccessor.hasData());
-    if (this.cacheAccessor.hasData()) {
-      //--
+    if (!this.cacheAccessor.hasData()) {
       console.log("actually making a request");
       const result = await this.api.makeRequest();
       this.cacheAccessor.setCache(result);
