@@ -21,8 +21,6 @@ interface IMakingSimulatedApiCalls {
   makeRequest(): Promise<any>;
 }
 
-//generating a class for logging: Single Responsibility Principle.
-//This class logs, SimulatedApi "makes" API calls
 class SimulatedApiWithLogging implements IMakingSimulatedApiCalls {
   simulatedApi: IMakingSimulatedApiCalls;
   startDate: number;
@@ -36,14 +34,12 @@ class SimulatedApiWithLogging implements IMakingSimulatedApiCalls {
     const responseData = await this.simulatedApi.makeRequest();
     this.endDate = Date.now();
     console.log("time taken: ", this.endDate - this.startDate);
-    //console.log("response", responseData);
     return new Promise((resolve) => resolve(responseData));
   }
 }
 
 let a = new SimulatedApi();
 let b = new SimulatedApiWithLogging(a);
-// b.makeRequest();
 
 interface ICacheAccessor {
   setCache(incomingData: Array<{}>): void;
@@ -59,9 +55,7 @@ class SimpleCacheAccessor implements ICacheAccessor {
   getCache = () => this.data;
   data: any[] = [];
   showData = () => this.data;
-  //getCache = () => return this.data;
   hasData(): boolean {
-    console.log("data.length", this.data.length);
     return this.data.length > 0;
   }
 }
@@ -78,12 +72,12 @@ class SimulatedApiWithCaching implements IMakingSimulatedApiCalls {
   async makeRequest(): Promise<any> {
     console.log("cacheAccessor has data", this.cacheAccessor.hasData());
     if (!this.cacheAccessor.hasData()) {
-      console.log("actually making a request");
+      console.log("need to reach out to API");
       const result = await this.api.makeRequest();
       this.cacheAccessor.setCache(result);
       console.log("data is set: ", this.cacheAccessor.showData());
     } else {
-      console.log("from cache");
+      console.log("data is coming from cache");
       console.log(this.cacheAccessor.showData());
       return this.cacheAccessor.showData();
     }
@@ -94,11 +88,7 @@ let cacheAccessor = new SimpleCacheAccessor();
 let c = new SimulatedApiWithCaching(b, cacheAccessor);
 console.log("---  request 1 ---");
 c.makeRequest();
-//console.log("result1", result1);
 setTimeout(() => {
   console.log("---  request 2 ---");
   c.makeRequest();
-  // console.log("result2", result2);
 }, 5000);
-// console.log("request 3");
-// c.makeRequest();

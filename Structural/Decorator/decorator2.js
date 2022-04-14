@@ -58,8 +58,6 @@ var SimulatedApi = /** @class */ (function () {
     }
     return SimulatedApi;
 }());
-//generating a class for logging: Single Responsibility Principle.
-//This class logs, SimulatedApi "makes" API calls
 var SimulatedApiWithLogging = /** @class */ (function () {
     function SimulatedApiWithLogging(simulatedApi) {
         this.simulatedApi = simulatedApi;
@@ -76,7 +74,6 @@ var SimulatedApiWithLogging = /** @class */ (function () {
                         responseData = _a.sent();
                         this.endDate = Date.now();
                         console.log("time taken: ", this.endDate - this.startDate);
-                        //console.log("response", responseData);
                         return [2 /*return*/, new Promise(function (resolve) { return resolve(responseData); })];
                 }
             });
@@ -96,9 +93,7 @@ var SimpleCacheAccessor = /** @class */ (function () {
     SimpleCacheAccessor.prototype.setCache = function (incomingData) {
         this.data = incomingData;
     };
-    //getCache = () => return this.data;
     SimpleCacheAccessor.prototype.hasData = function () {
-        console.log("data.length", this.data.length);
         return this.data.length > 0;
     };
     return SimpleCacheAccessor;
@@ -116,7 +111,7 @@ var SimulatedApiWithCaching = /** @class */ (function () {
                     case 0:
                         console.log("cacheAccessor has data", this.cacheAccessor.hasData());
                         if (!!this.cacheAccessor.hasData()) return [3 /*break*/, 2];
-                        console.log("actually making a request");
+                        console.log("need to reach out to API");
                         return [4 /*yield*/, this.api.makeRequest()];
                     case 1:
                         result = _a.sent();
@@ -124,7 +119,7 @@ var SimulatedApiWithCaching = /** @class */ (function () {
                         console.log("data is set: ", this.cacheAccessor.showData());
                         return [3 /*break*/, 3];
                     case 2:
-                        console.log("from cache");
+                        console.log("data is coming from cache");
                         console.log(this.cacheAccessor.showData());
                         return [2 /*return*/, this.cacheAccessor.showData()];
                     case 3: return [2 /*return*/];
@@ -138,11 +133,7 @@ var cacheAccessor = new SimpleCacheAccessor();
 var c = new SimulatedApiWithCaching(b, cacheAccessor);
 console.log("---  request 1 ---");
 c.makeRequest();
-//console.log("result1", result1);
 setTimeout(function () {
     console.log("---  request 2 ---");
     c.makeRequest();
-    // console.log("result2", result2);
 }, 5000);
-// console.log("request 3");
-// c.makeRequest();
