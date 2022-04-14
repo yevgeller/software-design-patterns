@@ -33,7 +33,7 @@ class SimulatedApiWithLogging implements IMakingSimulatedApiCalls {
     this.startDate = Date.now();
     const responseData = await this.simulatedApi.makeRequest();
     this.endDate = Date.now();
-    console.log("time taken: ", this.endDate - this.startDate);
+    console.log("time taken (ms): ", this.endDate - this.startDate);
     return new Promise((resolve) => resolve(responseData));
   }
 }
@@ -70,15 +70,13 @@ class SimulatedApiWithCaching implements IMakingSimulatedApiCalls {
   }
 
   async makeRequest(): Promise<any> {
-    console.log("cacheAccessor has data", this.cacheAccessor.hasData());
     if (!this.cacheAccessor.hasData()) {
-      console.log("need to reach out to API");
+      console.log("reaching out to API");
       const result = await this.api.makeRequest();
       this.cacheAccessor.setCache(result);
-      console.log("data is set: ", this.cacheAccessor.showData());
+      console.log("data:", this.cacheAccessor.showData());
     } else {
-      console.log("data is coming from cache");
-      console.log(this.cacheAccessor.showData());
+      console.log("data from cache:", this.cacheAccessor.showData());
       return this.cacheAccessor.showData();
     }
   }

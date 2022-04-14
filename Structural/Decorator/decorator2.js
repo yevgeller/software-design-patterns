@@ -73,7 +73,7 @@ var SimulatedApiWithLogging = /** @class */ (function () {
                     case 1:
                         responseData = _a.sent();
                         this.endDate = Date.now();
-                        console.log("time taken: ", this.endDate - this.startDate);
+                        console.log("time taken (ms): ", this.endDate - this.startDate);
                         return [2 /*return*/, new Promise(function (resolve) { return resolve(responseData); })];
                 }
             });
@@ -109,18 +109,16 @@ var SimulatedApiWithCaching = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        console.log("cacheAccessor has data", this.cacheAccessor.hasData());
                         if (!!this.cacheAccessor.hasData()) return [3 /*break*/, 2];
-                        console.log("need to reach out to API");
+                        console.log("reaching out to API");
                         return [4 /*yield*/, this.api.makeRequest()];
                     case 1:
                         result = _a.sent();
                         this.cacheAccessor.setCache(result);
-                        console.log("data is set: ", this.cacheAccessor.showData());
+                        console.log("data:", this.cacheAccessor.showData());
                         return [3 /*break*/, 3];
                     case 2:
-                        console.log("data is coming from cache");
-                        console.log(this.cacheAccessor.showData());
+                        console.log("data from cache:", this.cacheAccessor.showData());
                         return [2 /*return*/, this.cacheAccessor.showData()];
                     case 3: return [2 /*return*/];
                 }
