@@ -81,8 +81,6 @@ var SimulatedApiWithLogging = /** @class */ (function () {
     };
     return SimulatedApiWithLogging;
 }());
-var a = new SimulatedApi();
-var b = new SimulatedApiWithLogging(a);
 var SimpleCacheAccessor = /** @class */ (function () {
     function SimpleCacheAccessor() {
         var _this = this;
@@ -118,7 +116,7 @@ var SimulatedApiWithCaching = /** @class */ (function () {
                         console.log("data:", this.cacheAccessor.showData());
                         return [3 /*break*/, 3];
                     case 2:
-                        console.log("data from cache:", this.cacheAccessor.showData());
+                        console.log("data (from cache):", this.cacheAccessor.showData());
                         return [2 /*return*/, this.cacheAccessor.showData()];
                     case 3: return [2 /*return*/];
                 }
@@ -127,11 +125,13 @@ var SimulatedApiWithCaching = /** @class */ (function () {
     };
     return SimulatedApiWithCaching;
 }());
+var simpleApiAccessor = new SimulatedApi();
+var apiAccessorWithLogging = new SimulatedApiWithLogging(simpleApiAccessor);
 var cacheAccessor = new SimpleCacheAccessor();
-var c = new SimulatedApiWithCaching(b, cacheAccessor);
+var apiAccessorWithLoggingWithCaching = new SimulatedApiWithCaching(apiAccessorWithLogging, cacheAccessor);
 console.log("---  request 1 ---");
-c.makeRequest();
+apiAccessorWithLoggingWithCaching.makeRequest();
 setTimeout(function () {
     console.log("---  request 2 ---");
-    c.makeRequest();
+    apiAccessorWithLoggingWithCaching.makeRequest();
 }, 5000);

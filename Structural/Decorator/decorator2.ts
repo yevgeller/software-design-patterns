@@ -38,9 +38,6 @@ class SimulatedApiWithLogging implements IMakingSimulatedApiCalls {
   }
 }
 
-let a = new SimulatedApi();
-let b = new SimulatedApiWithLogging(a);
-
 interface ICacheAccessor {
   setCache(incomingData: Array<{}>): void;
   getCache: () => Array<{}>;
@@ -76,17 +73,22 @@ class SimulatedApiWithCaching implements IMakingSimulatedApiCalls {
       this.cacheAccessor.setCache(result);
       console.log("data:", this.cacheAccessor.showData());
     } else {
-      console.log("data from cache:", this.cacheAccessor.showData());
+      console.log("data (from cache):", this.cacheAccessor.showData());
       return this.cacheAccessor.showData();
     }
   }
 }
 
+let simpleApiAccessor = new SimulatedApi();
+let apiAccessorWithLogging = new SimulatedApiWithLogging(simpleApiAccessor);
 let cacheAccessor = new SimpleCacheAccessor();
-let c = new SimulatedApiWithCaching(b, cacheAccessor);
+let apiAccessorWithLoggingWithCaching = new SimulatedApiWithCaching(
+  apiAccessorWithLogging,
+  cacheAccessor
+);
 console.log("---  request 1 ---");
-c.makeRequest();
+apiAccessorWithLoggingWithCaching.makeRequest();
 setTimeout(() => {
   console.log("---  request 2 ---");
-  c.makeRequest();
+  apiAccessorWithLoggingWithCaching.makeRequest();
 }, 5000);
