@@ -26,3 +26,24 @@ class Stove {
 }
 
 //maybe redo this as a movie projection or a play start
+class SoundBooth {
+  //configure sound
+  //turn on microphones
+}
+
+class Auditorium {
+  closeDoors = (): void => console.log("doors are closed");
+  openDoors = (): void => console.log("doors are open");
+  lightingProvider: LightingProvider;
+  constructor(lightingProvider: LightingProvider) {
+    this.lightingProvider = lightingProvider;
+  }
+
+  dimLights = (): void => this.lightingProvider.dimLights();
+  brightLights = (): void => this.lightingProvider.brightLights();
+}
+
+class LightingProvider {
+  dimLights = (): void => console.log("lights dimmed");
+  brightLights = (): void => console.log("lights are on 100%");
+}
