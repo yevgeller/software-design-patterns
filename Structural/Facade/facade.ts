@@ -72,3 +72,11 @@ class TalentManager {
   ensureCastIsReadyForPerformance = (): void =>
     console.log("cast is ready to perform");
 }
+
+class Choir {
+  prepareChoir = (): void => console.log("choir is ready");
+}
+
+class Orchestra {
+  prepare = (): void => console.log("orchestra is ready");
+}
