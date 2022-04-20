@@ -27,8 +27,11 @@ class Stove {
 
 //maybe redo this as a movie projection or a play start
 class SoundBooth {
-  //configure sound
-  //turn on microphones
+  setUpSound = (): void => console.log("sound set up");
+  tearDownSound = (): void => console.log("sound system put away");
+  setUpOnStageMicrophones = (): void => console.log("stage microphones set up");
+  tearDownOnStageMicrophones = (): void =>
+    console.log("stage microphones tore down");
 }
 
 class Auditorium {
@@ -46,4 +49,26 @@ class Auditorium {
 class LightingProvider {
   dimLights = (): void => console.log("lights dimmed");
   brightLights = (): void => console.log("lights are on 100%");
+  setStageLights = (): void => console.log("stage lights are set properly");
+}
+
+class StageManager {
+  lightingProvider: LightingProvider;
+  talentManager: TalentManager;
+  ensureActorsReady = (): void => console.log("actors are ready");
+  ensureLightIsSet = (): void => this.lightingProvider.setStageLights();
+
+  constructor(
+    lightingProvider: LightingProvider,
+    talentManager: TalentManager
+  ) {
+    this.lightingProvider = lightingProvider;
+    this.talentManager = talentManager;
+  }
+}
+
+class TalentManager {
+  castActors = (): void => console.log("actors cast to roles");
+  ensureCastIsReadyForPerformance = (): void =>
+    console.log("cast is ready to perform");
 }
