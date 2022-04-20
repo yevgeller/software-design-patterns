@@ -26,7 +26,16 @@
 // }
 
 // //maybe redo this as a movie projection or a play start
+
+interface IInPosition {
+  inPosition(): void;
+}
+//implement interface on all of them
+//console code
 class SoundBooth {
+  constructor() {
+    console.log("sound booth here");
+  }
   setUpSound = (): void => console.log("sound set up");
   tearDownSound = (): void => console.log("sound system put away");
   setUpOnStageMicrophones = (): void => console.log("stage microphones set up");
@@ -40,6 +49,7 @@ class Auditorium {
   lightingProvider: LightingProvider;
   constructor(lightingProvider: LightingProvider) {
     this.lightingProvider = lightingProvider;
+    console.log("auditorium here");
   }
 
   dimLights = (): void => this.lightingProvider.dimLights();
@@ -47,6 +57,9 @@ class Auditorium {
 }
 
 class LightingProvider {
+  constructor() {
+    console.log("Lighting Provider initialized");
+  }
   dimLights = (): void => console.log("lights dimmed");
   brightLights = (): void => console.log("lights are on 100%");
   setStageLights = (): void => console.log("stage lights are set properly");
@@ -64,6 +77,7 @@ class StageManager {
   ) {
     this.lightingProvider = lightingProvider;
     this.talentManager = talentManager;
+    console.log("stage manager is ready");
   }
 }
 
@@ -71,12 +85,23 @@ class TalentManager {
   castActors = (): void => console.log("actors cast to roles");
   ensureCastIsReadyForPerformance = (): void =>
     console.log("cast is ready to perform");
+  constructor() {
+    console.log("talent manager is ready to deal with cast");
+  }
 }
 
 class Choir {
+  constructor() {
+    console.log("choir is here");
+  }
   prepareChoir = (): void => console.log("choir is ready");
 }
 
 class Orchestra {
+  constructor() {
+    console.log("orchestra is here");
+  }
   prepare = (): void => console.log("orchestra is ready");
 }
+
+let soundBooth = new SoundBooth();
