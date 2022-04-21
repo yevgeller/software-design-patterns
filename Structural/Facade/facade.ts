@@ -105,3 +105,9 @@ class Orchestra {
 }
 
 let soundBooth = new SoundBooth();
+let lightingProvider = new LightingProvider();
+let auditorium = new Auditorium(lightingProvider);
+let talentManager = new TalentManager();
+let stageManager = new StageManager(lightingProvider, talentManager);
+let choir = new Choir();
+let orchestra = new Orchestra();
