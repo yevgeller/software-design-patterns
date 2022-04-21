@@ -27,9 +27,9 @@
 
 // //maybe redo this as a movie projection or a play start
 
-interface IInPosition {
-  inPosition(): void;
-}
+// interface IInPosition {
+// inPosition(): void;
+// }
 //implement interface on all of them
 //console code
 class SoundBooth {
