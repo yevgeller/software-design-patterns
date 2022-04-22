@@ -94,7 +94,7 @@ class Choir {
   constructor() {
     console.log("choir is here");
   }
-  prepareChoir = (): void => console.log("choir is ready");
+  prepare = (): void => console.log("choir is ready");
 }
 
 class Orchestra {
@@ -112,7 +112,11 @@ let auditorium = new Auditorium(lightingProvider);
 auditorium.openDoors();
 let talentManager = new TalentManager();
 let stageManager = new StageManager(lightingProvider, talentManager);
+stageManager.ensureActorsReady();
+stageManager.ensureLightIsSet();
 let choir = new Choir();
+choir.prepare();
 let orchestra = new Orchestra();
+orchestra.prepare();
 
 auditorium.dimLights();
