@@ -83,7 +83,7 @@ var TalentManager = /** @class */ (function () {
 }());
 var Choir = /** @class */ (function () {
     function Choir() {
-        this.prepareChoir = function () { return console.log("choir is ready"); };
+        this.prepare = function () { return console.log("choir is ready"); };
         console.log("choir is here");
     }
     return Choir;
@@ -96,9 +96,17 @@ var Orchestra = /** @class */ (function () {
     return Orchestra;
 }());
 var soundBooth = new SoundBooth();
+soundBooth.setUpSound();
+soundBooth.setUpOnStageMicrophones();
 var lightingProvider = new LightingProvider();
 var auditorium = new Auditorium(lightingProvider);
+auditorium.openDoors();
 var talentManager = new TalentManager();
 var stageManager = new StageManager(lightingProvider, talentManager);
+stageManager.ensureActorsReady();
+stageManager.ensureLightIsSet();
 var choir = new Choir();
+choir.prepare();
 var orchestra = new Orchestra();
+orchestra.prepare();
+auditorium.dimLights();
