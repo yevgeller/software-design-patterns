@@ -84,5 +84,4 @@ let choir = new Choir();
 choir.prepare();
 let orchestra = new Orchestra();
 orchestra.prepare();
-
 auditorium.dimLights();
