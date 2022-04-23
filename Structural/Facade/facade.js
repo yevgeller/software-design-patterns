@@ -81,3 +81,33 @@ choir.prepare();
 var orchestra = new Orchestra();
 orchestra.prepare();
 auditorium.dimLights();
+var PerformanceStarter = /** @class */ (function () {
+    function PerformanceStarter() {
+    }
+    PerformanceStarter.prototype.startPerformance = function () {
+        var soundBooth = new SoundBooth();
+        soundBooth.setUpSound();
+        soundBooth.setUpOnStageMicrophones();
+        var lightingProvider = new LightingProvider();
+        var auditorium = new Auditorium(lightingProvider);
+        auditorium.openDoors();
+        var talentManager = new TalentManager();
+        var stageManager = new StageManager(lightingProvider, talentManager);
+        stageManager.ensureActorsReady();
+        stageManager.ensureLightIsSet();
+        var choir = new Choir();
+        choir.prepare();
+        var orchestra = new Orchestra();
+        orchestra.prepare();
+        auditorium.dimLights();
+    };
+    return PerformanceStarter;
+}());
+console.log("-------------");
+console.log("-------------");
+console.log("-------------");
+console.log("\n");
+console.log("\n");
+console.log("\n");
+var performanceStarter = new PerformanceStarter();
+performanceStarter.startPerformance();

@@ -85,3 +85,33 @@ choir.prepare();
 let orchestra = new Orchestra();
 orchestra.prepare();
 auditorium.dimLights();
+
+class PerformanceStarter {
+  startPerformance(): void {
+    let soundBooth = new SoundBooth();
+    soundBooth.setUpSound();
+    soundBooth.setUpOnStageMicrophones();
+    let lightingProvider = new LightingProvider();
+    let auditorium = new Auditorium(lightingProvider);
+    auditorium.openDoors();
+    let talentManager = new TalentManager();
+    let stageManager = new StageManager(lightingProvider, talentManager);
+    stageManager.ensureActorsReady();
+    stageManager.ensureLightIsSet();
+    let choir = new Choir();
+    choir.prepare();
+    let orchestra = new Orchestra();
+    orchestra.prepare();
+    auditorium.dimLights();
+  }
+}
+
+console.log("-------------");
+console.log("-------------");
+console.log("-------------");
+console.log("\n");
+console.log("\n");
+console.log("\n");
+
+let performanceStarter = new PerformanceStarter();
+performanceStarter.startPerformance();
