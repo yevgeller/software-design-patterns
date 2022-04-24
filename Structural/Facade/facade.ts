@@ -106,12 +106,5 @@ class PerformanceStarter {
   }
 }
 
-console.log("-------------");
-console.log("-------------");
-console.log("-------------");
-console.log("\n");
-console.log("\n");
-console.log("\n");
-
 let performanceStarter = new PerformanceStarter();
 performanceStarter.startPerformance();

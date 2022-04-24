@@ -103,11 +103,5 @@ var PerformanceStarter = /** @class */ (function () {
     };
     return PerformanceStarter;
 }());
-console.log("-------------");
-console.log("-------------");
-console.log("-------------");
-console.log("\n");
-console.log("\n");
-console.log("\n");
 var performanceStarter = new PerformanceStarter();
 performanceStarter.startPerformance();
