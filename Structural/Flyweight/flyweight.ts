@@ -4,7 +4,7 @@ interface IFloraItem {
   display(
     size: "small" | "medium" | "large",
     somethingElseExtrinsic: string
-  ): void; //partially extrinsic: size is provided
+  ): void; //extrinsic
 }
 
 class FloraItemParent implements IFloraItem {
