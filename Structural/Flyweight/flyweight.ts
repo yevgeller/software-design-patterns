@@ -114,7 +114,7 @@ let largeGrass = floraFactory.getFloraItem("grass");
 largeGrass.display("large", "some bug is sitting on this huge blade of grass");
 floraFactory.showDictionary();
 let largeFern = floraFactory.getFloraItem("fern");
-largeFern.display("large", "this fern is so large, it's starting to wilt");
+largeFern.display("large", "this fern is so large, it is starting to wilt");
 floraFactory.showDictionary(true);
 
 console.log("-- medium items --");
@@ -142,7 +142,7 @@ let smallFern = floraFactory.getFloraItem("fern");
 smallFern.display("small", "a young fern");
 floraFactory.showDictionary(true);
 
-console.log("-- one of each items --");
+console.log("-- three random items --");
 let largePine2 = floraFactory.getFloraItem("pine");
 largePine2.display("large", "Another large pine tree!");
 floraFactory.showDictionary();

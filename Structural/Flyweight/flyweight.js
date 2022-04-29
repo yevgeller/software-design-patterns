@@ -140,7 +140,7 @@ floraFactory.showDictionary();
 var smallFern = floraFactory.getFloraItem("fern");
 smallFern.display("small", "a young fern");
 floraFactory.showDictionary(true);
-console.log("-- one of each items --");
+console.log("-- three random items --");
 var largePine2 = floraFactory.getFloraItem("pine");
 largePine2.display("large", "Another large pine tree!");
 floraFactory.showDictionary();
