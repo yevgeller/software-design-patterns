@@ -8,14 +8,14 @@ interface IFloraItem {
 }
 
 class FloraItemParent implements IFloraItem {
-  name: string;
-  description: string;
+  name: string = "no name";
+  description: string = "no description";
   display(
     size: "small" | "medium" | "large",
     somethingElseExtrinsic: string = ""
   ): void {
     console.log(
-      `A ${size}-sized ${this.name}, looks like a ${this.description} is here.`
+      `A ${size}-sized ${this.name}, looks like a ${this.description}`
     );
     if (somethingElseExtrinsic.length > 0) {
       console.log("Extra data: ", somethingElseExtrinsic);
@@ -144,15 +144,15 @@ floraFactory.showDictionary(true);
 
 console.log("-- one of each items --");
 let largePine2 = floraFactory.getFloraItem("pine");
-largePine2.display(
-  "large",
-  "Another large pine tree!"
-);
+largePine2.display("large", "Another large pine tree!");
 floraFactory.showDictionary();
 let smallGrass2 = floraFactory.getFloraItem("grass");
 smallGrass2.display("small", "ALSO freshly cut");
 floraFactory.showDictionary();
 
 let mediumFern2 = floraFactory.getFloraItem("fern");
-smallFern.display("medium", "not such young fern, but not as bushy as an adult plant");
+smallFern.display(
+  "medium",
+  "not such young fern, but not as bushy as an adult plant"
+);
 floraFactory.showDictionary(true);

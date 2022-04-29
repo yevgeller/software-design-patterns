@@ -15,10 +15,12 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var FloraItemParent = /** @class */ (function () {
     function FloraItemParent() {
+        this.name = "no name";
+        this.description = "no description";
     }
     FloraItemParent.prototype.display = function (size, somethingElseExtrinsic) {
         if (somethingElseExtrinsic === void 0) { somethingElseExtrinsic = ""; }
-        console.log("A ".concat(size, "-sized ").concat(this.name, ", looks like a ").concat(this.description, " is here."));
+        console.log("A ".concat(size, "-sized ").concat(this.name, ", looks like a ").concat(this.description));
         if (somethingElseExtrinsic.length > 0) {
             console.log("Extra data: ", somethingElseExtrinsic);
         }
