@@ -1,6 +1,7 @@
 class Resource {
-  getResource(): void {
+  getResource(): boolean {
     console.log("Here you go!");
+    return true;
   }
 }
 
@@ -10,13 +11,19 @@ class ResourceControllerByWhim {
     this.resource = new Resource();
   }
 
-  getResource(): void {
+  getResource(): boolean {
     let whim = Math.floor(Math.random() * 10);
     console.log("whim: ", whim);
     if (whim < 3) {
       console.log("contacting remote resource...");
-      setTimeout(() => this.resource.getResource(), 1000);
-    } else console.log("I don't feel like it, so no.");
+      setTimeout(() => {
+        this.resource.getResource();
+        return true;
+      }, 1000);
+    } else {
+      console.log("I don't feel like it, so no.");
+      return false;
+    }
   }
 }
 
@@ -28,13 +35,19 @@ class ResourceControllerByPermissions {
     this.permission = permission;
   }
 
-  getResource(): void {
+  getResource(): boolean {
     if (this.permission === "access") return this.resource.getResource();
-    else console.log("Access denied");
+    else {
+      console.log("Access denied");
+      return false;
+    }
   }
 }
 
 let whimmed = new ResourceControllerByWhim();
+whimmed.getResource();
+whimmed.getResource();
+whimmed.getResource();
 whimmed.getResource();
 whimmed.getResource();
 whimmed.getResource();
