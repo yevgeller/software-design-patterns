@@ -36,3 +36,11 @@ class ResourceControllerByPermissions {
 
 let whimmed = new ResourceControllerByWhim();
 whimmed.getResource();
+whimmed.getResource();
+whimmed.getResource();
+
+let noPermission = new ResourceControllerByPermissions("no access");
+noPermission.getResource();
+
+let yesPermission = new ResourceControllerByPermissions("access");
+yesPermission.getResource();
