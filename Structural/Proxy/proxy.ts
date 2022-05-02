@@ -12,6 +12,7 @@ class ResourceControllerByWhim {
 
   getResource(): void {
     let whim = Math.floor(Math.random() * 10);
+    console.log("whim: ", whim);
     if (whim < 3) {
       console.log("contacting remote resource...");
       setTimeout(() => this.resource.getResource(), 1000);
@@ -33,3 +34,5 @@ class ResourceControllerByPermissions {
   }
 }
 
+let whimmed = new ResourceControllerByWhim();
+whimmed.getResource();
