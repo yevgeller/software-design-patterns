@@ -49,7 +49,10 @@ var result = false;
 while (result === false) {
     result = whimmed.getResource();
 }
-var noPermission = new ResourceControllerByPermissions("no access");
-noPermission.getResource();
-var yesPermission = new ResourceControllerByPermissions("access");
-yesPermission.getResource();
+setTimeout(function () {
+    console.log("----- Permission Proxy access example: no permissions");
+    var noPermission = new ResourceControllerByPermissions("no access");
+    noPermission.getResource();
+    var yesPermission = new ResourceControllerByPermissions("access");
+    yesPermission.getResource();
+}, 5000);
