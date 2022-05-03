@@ -45,13 +45,10 @@ class ResourceControllerByPermissions {
 }
 
 let whimmed = new ResourceControllerByWhim();
-whimmed.getResource();
-whimmed.getResource();
-whimmed.getResource();
-whimmed.getResource();
-whimmed.getResource();
-whimmed.getResource();
-
+let result = false;
+while (result === false) {
+  result = whimmed.getResource();
+}
 let noPermission = new ResourceControllerByPermissions("no access");
 noPermission.getResource();
 
