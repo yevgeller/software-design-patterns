@@ -54,6 +54,7 @@ setTimeout(() => {
   let noPermission = new ResourceControllerByPermissions("no access");
   noPermission.getResource();
 
+  console.log("----- Permission Proxy access example: with permissions");
   let yesPermission = new ResourceControllerByPermissions("access");
   yesPermission.getResource();
 }, 5000);
