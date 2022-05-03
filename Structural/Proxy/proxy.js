@@ -3,6 +3,7 @@ var Resource = /** @class */ (function () {
     }
     Resource.prototype.getResource = function () {
         console.log("Here you go!");
+        return true;
     };
     return Resource;
 }());
@@ -16,10 +17,15 @@ var ResourceControllerByWhim = /** @class */ (function () {
         console.log("whim: ", whim);
         if (whim < 3) {
             console.log("contacting remote resource...");
-            setTimeout(function () { return _this.resource.getResource(); }, 1000);
+            setTimeout(function () {
+                _this.resource.getResource();
+                return true;
+            }, 1000);
         }
-        else
+        else {
             console.log("I don't feel like it, so no.");
+            return false;
+        }
     };
     return ResourceControllerByWhim;
 }());
@@ -31,15 +37,18 @@ var ResourceControllerByPermissions = /** @class */ (function () {
     ResourceControllerByPermissions.prototype.getResource = function () {
         if (this.permission === "access")
             return this.resource.getResource();
-        else
+        else {
             console.log("Access denied");
+            return false;
+        }
     };
     return ResourceControllerByPermissions;
 }());
 var whimmed = new ResourceControllerByWhim();
-whimmed.getResource();
-whimmed.getResource();
-whimmed.getResource();
+var result = false;
+while (result === false) {
+    result = whimmed.getResource();
+}
 var noPermission = new ResourceControllerByPermissions("no access");
 noPermission.getResource();
 var yesPermission = new ResourceControllerByPermissions("access");

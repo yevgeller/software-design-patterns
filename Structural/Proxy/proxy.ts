@@ -49,6 +49,7 @@ let result = false;
 while (result === false) {
   result = whimmed.getResource();
 }
+console.log("----- Permission Proxy access example: no permissions");
 let noPermission = new ResourceControllerByPermissions("no access");
 noPermission.getResource();
 
