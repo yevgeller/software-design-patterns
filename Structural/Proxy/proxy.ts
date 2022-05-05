@@ -1,11 +1,15 @@
-class Resource {
+interface IResourceProvider {
+  getResource(): boolean;
+}
+
+class Resource implements IResourceProvider {
   getResource(): boolean {
     console.log("Here you go!");
     return true;
   }
 }
 
-class ResourceControllerByWhim {
+class ResourceControllerByWhim implements IResourceProvider {
   resource: Resource;
   constructor() {
     this.resource = new Resource();
@@ -27,7 +31,7 @@ class ResourceControllerByWhim {
   }
 }
 
-class ResourceControllerByPermissions {
+class ResourceControllerByPermissions implements IResourceProvider {
   resource: Resource;
   permission: string;
   constructor(permission: string) {
