@@ -1,41 +1,3 @@
-/*class Ingredient {
-  name: string;
-  isDry: boolean;
-  unitOfMeasure: string;
-  units: string;
-  constructor(
-    name: string,
-    isDry: boolean,
-    unitOfMeasure: string,
-    units: string
-  ) {
-    this.name = name;
-    this.isDry = isDry;
-    this.unitOfMeasure = unitOfMeasure;
-    this.units = units;
-  }
-}
-
-class Recipe {
-  ingredients: Array<Ingredient>;
-  directions: Array<string>;
-
-  constructor(ingredients: Array<Ingredient>, directions: Array<string>) {
-    this.ingredients = ingredients;
-    this.directions = directions;
-  }
-}
-
-interface IIngredientIterator {
-  first(): Ingredient;
-  last(): Ingredient;
-  next(): Ingredient;
-  previous(): Ingredient;
-  currentPosition: number;
-  hasNext(): boolean;
-  currentItem: Ingredient;
-}
-*/
 interface IEnumerable {
   getEnumerator(): IEnumerator;
 }
@@ -44,7 +6,6 @@ interface IEnumerator {
   current(): number;
   moveNext(): boolean;
 }
-
 //class IngredientCollection
 class FibonacciSequence implements IEnumerable {
   numberOfDigits: number;
@@ -68,7 +29,7 @@ class FibonacciEnumerator implements IEnumerator {
   current(): number {
     return this.currentTotal;
   }
-  moveNext(): boolean {    
+  moveNext(): boolean {
     let newTotal = this.previousTotal + this.currentTotal;
     this.previousTotal = this.currentTotal;
     this.currentTotal = newTotal;
