@@ -92,7 +92,9 @@ namespace IngredientIterator {
             let wetIngredients = this.ingre.filter(x => x.isDry === false) as Array<Ingredient>;
             wetIngredients.sort((a, b) => (a.name > b.name) ? 1 : ((a.name < b.name) ? -1 : 0));
             wetIngredients.forEach((i) => console.log(i.displayIngredient()))
-            // sorted.push(wetIngredients)
+            sorted.push(...wetIngredients)
+            sorted.forEach((i) => console.log(i.displayIngredient()));
+
             // this.ingre.length = 0;
             // this.ingre.push(sorted);
         }
