@@ -21,8 +21,9 @@ var IngredientIterator;
         Recipe.prototype.printRecipe = function () {
             console.log(this.dishName.toUpperCase());
             var ingrenum = this.ingredients.getEnumerator();
+            console.log('\n\n\n');
             while (ingrenum.hasNext()) {
-                console.log(ingrenum.next().name);
+                console.log(ingrenum.next().displayIngredient());
             }
         };
         return Recipe;
