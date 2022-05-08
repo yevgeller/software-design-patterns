@@ -19,22 +19,26 @@ namespace IngredientIterator {
             this.unitOfMeasure = unitOfMeasure;
             this.units = units;
         }
+
+        displayIngredient = () => `${this.name} (${this.isDry ? 'dry' : 'wet'}), ${this.units} ${this.unitOfMeasure.toLocaleLowerCase() === 'unit' ? '' : this.unitOfMeasure}`
     }
 
     class Recipe {
         ingredients: IngredientsCollection; //Array<Ingredient>;
         directions: Array<string>;
-
-        constructor(ingredients: Array<Ingredient>, directions: Array<string>) {
+        dishName: string;
+        constructor(dishName: string, ingredients: Array<Ingredient>, directions: Array<string>) {
+            this.dishName = dishName;
             this.ingredients = new IngredientsCollection(ingredients);
             //this.ingredients = ingredients;
             this.directions = directions;
         }
         printRecipe(): void {
-            console.log('here')
+            console.log(this.dishName.toUpperCase());
             let ingrenum = this.ingredients.getEnumerator();
+            console.log('\n\n\n')
             while (ingrenum.hasNext()) {
-                console.log(ingrenum.next().name);
+                console.log(ingrenum.next().displayIngredient());
             }
 
         }
@@ -67,6 +71,7 @@ namespace IngredientIterator {
         currentItem: Ingredient;
         constructor(ingre: Array<Ingredient>) {
             this.ingre = ingre;
+            this.sortIngredientsByTypeThenName();
             this.currentIndex = 0;
             this.currentItem = ingre[0]
         }
@@ -77,8 +82,19 @@ namespace IngredientIterator {
             return this.currentItem;
         }
         hasNext(): boolean { return this.currentIndex < this.ingre.length - 1 }
-        private sortIncomingIngredients(incoming: Array<Ingredient>) {
+        private sortIngredientsByTypeThenName() {
+            let sorted = this.ingre.filter(x => x.isDry == true) as Ingredient[];
 
+            sorted.sort((a, b) => (a.name > b.name) ? 1 : ((a.name < b.name) ? -1 : 0));
+            console.log('dry:')
+            sorted.forEach((i) => console.log(i.displayIngredient()));
+            console.log('\nwet:')
+            let wetIngredients = this.ingre.filter(x => x.isDry === false) as Array<Ingredient>;
+            wetIngredients.sort((a, b) => (a.name > b.name) ? 1 : ((a.name < b.name) ? -1 : 0));
+            wetIngredients.forEach((i) => console.log(i.displayIngredient()))
+            // sorted.push(wetIngredients)
+            // this.ingre.length = 0;
+            // this.ingre.push(sorted);
         }
     }
     let ingrFlour = new Ingredient('flour', true, 'cup', '1.5');
@@ -93,6 +109,6 @@ namespace IngredientIterator {
     let ingrBlueberries = new Ingredient('blueberries', false, 'cup', '1/3')
     let arrayOfIngre = [ingrBakingPowder, ingrBlueberries, ingrEgg, ingrFlour, ingrMilk, ingrOil, ingrRicotta, ingrSalt, ingrSugar, ingrVanilla] as Array<Ingredient>
 
-    let muffins = new Recipe(arrayOfIngre, ['mix dry ingredients', 'mix wet ingredients', 'mix together', 'bake at 375 for 35 minutes'])
+    let muffins = new Recipe('Ricotta blueberry muffins', arrayOfIngre, ['mix dry ingredients', 'mix wet ingredients', 'mix together', 'bake at 375 for 35 minutes'])
     muffins.printRecipe();
 }

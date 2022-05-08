@@ -2,6 +2,8 @@ var IngredientIterator;
 (function (IngredientIterator) {
     var Ingredient = /** @class */ (function () {
         function Ingredient(name, isDry, unitOfMeasure, units) {
+            var _this = this;
+            this.displayIngredient = function () { return "".concat(_this.name, " (").concat(_this.isDry ? 'dry' : 'wet', "), ").concat(_this.units, " ").concat(_this.unitOfMeasure.toLocaleLowerCase() === 'unit' ? '' : _this.unitOfMeasure); };
             this.name = name;
             this.isDry = isDry;
             this.unitOfMeasure = unitOfMeasure;
@@ -10,13 +12,14 @@ var IngredientIterator;
         return Ingredient;
     }());
     var Recipe = /** @class */ (function () {
-        function Recipe(ingredients, directions) {
+        function Recipe(dishName, ingredients, directions) {
+            this.dishName = dishName;
             this.ingredients = new IngredientsCollection(ingredients);
             //this.ingredients = ingredients;
             this.directions = directions;
         }
         Recipe.prototype.printRecipe = function () {
-            console.log('here');
+            console.log(this.dishName.toUpperCase());
             var ingrenum = this.ingredients.getEnumerator();
             while (ingrenum.hasNext()) {
                 console.log(ingrenum.next().name);
@@ -41,6 +44,7 @@ var IngredientIterator;
     var Ingrenumerator = /** @class */ (function () {
         function Ingrenumerator(ingre) {
             this.ingre = ingre;
+            this.sortIngredientsByTypeThenName();
             this.currentIndex = 0;
             this.currentItem = ingre[0];
         }
@@ -52,7 +56,18 @@ var IngredientIterator;
             return this.currentItem;
         };
         Ingrenumerator.prototype.hasNext = function () { return this.currentIndex < this.ingre.length - 1; };
-        Ingrenumerator.prototype.sortIncomingIngredients = function (incoming) {
+        Ingrenumerator.prototype.sortIngredientsByTypeThenName = function () {
+            var sorted = this.ingre.filter(function (x) { return x.isDry == true; });
+            sorted.sort(function (a, b) { return (a.name > b.name) ? 1 : ((a.name < b.name) ? -1 : 0); });
+            console.log('dry:');
+            sorted.forEach(function (i) { return console.log(i.displayIngredient()); });
+            console.log('\nwet:');
+            var wetIngredients = this.ingre.filter(function (x) { return x.isDry === false; });
+            wetIngredients.sort(function (a, b) { return (a.name > b.name) ? 1 : ((a.name < b.name) ? -1 : 0); });
+            wetIngredients.forEach(function (i) { return console.log(i.displayIngredient()); });
+            // sorted.push(wetIngredients)
+            // this.ingre.length = 0;
+            // this.ingre.push(sorted);
         };
         return Ingrenumerator;
     }());
@@ -67,6 +82,6 @@ var IngredientIterator;
     var ingrEgg = new Ingredient('egg', false, 'unit', '1');
     var ingrBlueberries = new Ingredient('blueberries', false, 'cup', '1/3');
     var arrayOfIngre = [ingrBakingPowder, ingrBlueberries, ingrEgg, ingrFlour, ingrMilk, ingrOil, ingrRicotta, ingrSalt, ingrSugar, ingrVanilla];
-    var muffins = new Recipe(arrayOfIngre, ['mix dry ingredients', 'mix wet ingredients', 'mix together', 'bake at 375 for 35 minutes']);
+    var muffins = new Recipe('Ricotta blueberry muffins', arrayOfIngre, ['mix dry ingredients', 'mix wet ingredients', 'mix together', 'bake at 375 for 35 minutes']);
     muffins.printRecipe();
 })(IngredientIterator || (IngredientIterator = {}));
