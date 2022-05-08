@@ -1,5 +1,5 @@
 namespace IngredientIterator {
-    interface IngrEnumerable {
+    interface IIngredientEnumerable {
         getEnumerator(): IIngredientIterator;
     }
 
@@ -42,6 +42,9 @@ namespace IngredientIterator {
             console.log('\nDIRECTIONS: ')
             this.directions.forEach((d) => console.log(d))
         }
+        cookRecipe(): void {
+            //lol not this time
+        }
     }
 
     interface IIngredientIterator {
@@ -50,43 +53,43 @@ namespace IngredientIterator {
         currentItem: Ingredient;
     }
 
-    class IngredientsCollection implements IngrEnumerable {
-        private ingre: Array<Ingredient>;
-        constructor(ingre: Array<Ingredient>) {
-            if (ingre === undefined || ingre.length === 0)
+    class IngredientsCollection implements IIngredientEnumerable {
+        private allIngredients: Array<Ingredient>;
+        constructor(allIngredients: Array<Ingredient>) {
+            if (allIngredients === undefined || allIngredients.length === 0)
                 throw new Error("Cannot iterate over empty ingredient collection")
-            this.ingre = ingre;
+            this.allIngredients = allIngredients;
         }
         getEnumerator(): IIngredientIterator {
-            return new Ingrenumerator(this.ingre);
+            return new IngredientEnumerator(this.allIngredients);
         }
     }
 
-    class Ingrenumerator implements IIngredientIterator {
-        private ingre: Array<Ingredient>;
+    class IngredientEnumerator implements IIngredientIterator {
+        private allIngredients: Array<Ingredient>;
         private currentIndex: number;
         currentItem: Ingredient;
-        constructor(ingre: Array<Ingredient>) {
-            this.ingre = ingre;
+        constructor(allIngredients: Array<Ingredient>) {
+            this.allIngredients = allIngredients;
             this.sortIngredientsByTypeThenName();
             this.currentIndex = 0;
-            this.currentItem = ingre[0]
+            this.currentItem = allIngredients[0]
         }
         next(): Ingredient {
             if (!this.hasNext()) return null;
             this.currentIndex++;
-            this.currentItem = this.ingre[this.currentIndex];
+            this.currentItem = this.allIngredients[this.currentIndex];
             return this.currentItem;
         }
-        hasNext(): boolean { return this.currentIndex < this.ingre.length - 1 }
+        hasNext(): boolean { return this.currentIndex < this.allIngredients.length - 1 }
         private sortIngredientsByTypeThenName() {
-            let sorted = this.ingre.filter(x => x.isDry == true) as Ingredient[];
+            let sorted = this.allIngredients.filter(x => x.isDry == true) as Ingredient[];
             sorted.sort((a, b) => (a.name > b.name) ? 1 : ((a.name < b.name) ? -1 : 0));
-            let wetIngredients = this.ingre.filter(x => x.isDry === false) as Array<Ingredient>;
+            let wetIngredients = this.allIngredients.filter(x => x.isDry === false) as Array<Ingredient>;
             wetIngredients.sort((a, b) => (a.name > b.name) ? 1 : ((a.name < b.name) ? -1 : 0));
             sorted.push(...wetIngredients)
-            this.ingre.length = 0;
-            this.ingre.push(...sorted);
+            this.allIngredients.length = 0;
+            this.allIngredients.push(...sorted);
         }
     }
     let ingrFlour = new Ingredient('flour', true, 'cup', '1.5');
@@ -101,6 +104,6 @@ namespace IngredientIterator {
     let ingrBlueberries = new Ingredient('blueberries', false, 'cup', '1/3')
     let arrayOfIngre = [ingrBakingPowder, ingrBlueberries, ingrEgg, ingrFlour, ingrMilk, ingrOil, ingrRicotta, ingrSalt, ingrSugar, ingrVanilla] as Array<Ingredient>
 
-    let muffins = new Recipe('Ricotta blueberry muffins', arrayOfIngre, ['mix dry ingredients', 'mix wet ingredients', 'mix together', 'bake at 375 for 32 minutes'])
+    let muffins = new Recipe('Ricotta blueberry muffins', arrayOfIngre, ['mix dry ingredients', 'mix wet ingredients', 'mix together', 'put in muffin pan', 'bake at 375 for 32 minutes or until ready'])
     muffins.printRecipe();
 }

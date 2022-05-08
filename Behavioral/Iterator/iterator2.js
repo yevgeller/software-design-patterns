@@ -27,45 +27,48 @@ var IngredientIterator;
             console.log('\nDIRECTIONS: ');
             this.directions.forEach(function (d) { return console.log(d); });
         };
+        Recipe.prototype.cookRecipe = function () {
+            //lol not this time
+        };
         return Recipe;
     }());
     var IngredientsCollection = /** @class */ (function () {
-        function IngredientsCollection(ingre) {
-            if (ingre === undefined || ingre.length === 0)
+        function IngredientsCollection(allIngredients) {
+            if (allIngredients === undefined || allIngredients.length === 0)
                 throw new Error("Cannot iterate over empty ingredient collection");
-            this.ingre = ingre;
+            this.allIngredients = allIngredients;
         }
         IngredientsCollection.prototype.getEnumerator = function () {
-            return new Ingrenumerator(this.ingre);
+            return new IngredientEnumerator(this.allIngredients);
         };
         return IngredientsCollection;
     }());
-    var Ingrenumerator = /** @class */ (function () {
-        function Ingrenumerator(ingre) {
-            this.ingre = ingre;
+    var IngredientEnumerator = /** @class */ (function () {
+        function IngredientEnumerator(allIngredients) {
+            this.allIngredients = allIngredients;
             this.sortIngredientsByTypeThenName();
             this.currentIndex = 0;
-            this.currentItem = ingre[0];
+            this.currentItem = allIngredients[0];
         }
-        Ingrenumerator.prototype.next = function () {
+        IngredientEnumerator.prototype.next = function () {
             if (!this.hasNext())
                 return null;
             this.currentIndex++;
-            this.currentItem = this.ingre[this.currentIndex];
+            this.currentItem = this.allIngredients[this.currentIndex];
             return this.currentItem;
         };
-        Ingrenumerator.prototype.hasNext = function () { return this.currentIndex < this.ingre.length - 1; };
-        Ingrenumerator.prototype.sortIngredientsByTypeThenName = function () {
+        IngredientEnumerator.prototype.hasNext = function () { return this.currentIndex < this.allIngredients.length - 1; };
+        IngredientEnumerator.prototype.sortIngredientsByTypeThenName = function () {
             var _a;
-            var sorted = this.ingre.filter(function (x) { return x.isDry == true; });
+            var sorted = this.allIngredients.filter(function (x) { return x.isDry == true; });
             sorted.sort(function (a, b) { return (a.name > b.name) ? 1 : ((a.name < b.name) ? -1 : 0); });
-            var wetIngredients = this.ingre.filter(function (x) { return x.isDry === false; });
+            var wetIngredients = this.allIngredients.filter(function (x) { return x.isDry === false; });
             wetIngredients.sort(function (a, b) { return (a.name > b.name) ? 1 : ((a.name < b.name) ? -1 : 0); });
             sorted.push.apply(sorted, wetIngredients);
-            this.ingre.length = 0;
-            (_a = this.ingre).push.apply(_a, sorted);
+            this.allIngredients.length = 0;
+            (_a = this.allIngredients).push.apply(_a, sorted);
         };
-        return Ingrenumerator;
+        return IngredientEnumerator;
     }());
     var ingrFlour = new Ingredient('flour', true, 'cup', '1.5');
     var ingrSugar = new Ingredient('sugar', true, 'cup', '0.5');
@@ -78,6 +81,6 @@ var IngredientIterator;
     var ingrEgg = new Ingredient('egg', false, 'unit', '1');
     var ingrBlueberries = new Ingredient('blueberries', false, 'cup', '1/3');
     var arrayOfIngre = [ingrBakingPowder, ingrBlueberries, ingrEgg, ingrFlour, ingrMilk, ingrOil, ingrRicotta, ingrSalt, ingrSugar, ingrVanilla];
-    var muffins = new Recipe('Ricotta blueberry muffins', arrayOfIngre, ['mix dry ingredients', 'mix wet ingredients', 'mix together', 'bake at 375 for 32 minutes']);
+    var muffins = new Recipe('Ricotta blueberry muffins', arrayOfIngre, ['mix dry ingredients', 'mix wet ingredients', 'mix together', 'put in muffin pan', 'bake at 375 for 32 minutes or until ready']);
     muffins.printRecipe();
 })(IngredientIterator || (IngredientIterator = {}));
