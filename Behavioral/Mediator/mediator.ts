@@ -72,7 +72,7 @@ class FamilyMember implements IFamilyMember {
   name: string;
   position: string;
   room: IFamilyChatRoom;
-  constructor() {
+  constructor(name: string, position: string) {
     //here
   }
 
