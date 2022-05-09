@@ -73,7 +73,8 @@ class FamilyMember implements IFamilyMember {
   position: string;
   room: IFamilyChatRoom;
   constructor(name: string, position: string) {
-    //here
+    this.name = name;
+    this.position = position;
   }
 
   getName(): string {
@@ -105,4 +106,15 @@ class ChatRoom implements IFamilyChatRoom {
   register(person: IFamilyMember): void {
     this.recipients.push(person); //check for duplicates
   }
+  registerInBulk(people: IFamilyMember[]): void {
+    this.recipients.push(...people);
+  }
 }
+
+let fa = new FamilyMember("John", "father");
+let ma = new FamilyMember("Mary", "mother");
+let so = new FamilyMember("Jack", "son");
+let da = new FamilyMember("Jill", "daughter");
+
+let cha = new ChatRoom();
+cha.registerInBulk([fa, ma, so, da]);
