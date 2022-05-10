@@ -147,3 +147,4 @@ let da = new FamilyMember("Jill", "daughter", cha);
 cha.registerInBulk([fa, ma, so, da]);
 fa.send("hi!");
 da.sendPrivate("hello!", "Jack");
+ma.sendPrivate("Hey!", "Jill");

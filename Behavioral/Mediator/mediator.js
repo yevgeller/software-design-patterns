@@ -69,7 +69,7 @@ var FamilyMember = /** @class */ (function () {
     FamilyMember.prototype.sendPrivate = function (message, to) {
         this.room.notifyDirectly(this.name, message, to);
     };
-    FamilyMember.prototype.handleNotification = function (message, from, isPrivate) {
+    FamilyMember.prototype.receive = function (message, from, isPrivate) {
         if (!isPrivate) {
             console.log("".concat(this.position, " ").concat(this.name, " received message ").concat(message, " from ").concat(from));
         }
@@ -89,14 +89,14 @@ var ChatRoom = /** @class */ (function () {
     ChatRoom.prototype.notifyDirectly = function (from, message, name) {
         var recipient = this.recipients.filter(function (r) { return r.getName() === name; });
         if (recipient && recipient.length > 0 && recipient[0] != undefined) {
-            recipient[0].handleNotification(message, from, true);
+            recipient[0].receive(message, from, true);
         }
         else {
             throw new Error("Recipient ".concat(name, " is not registered"));
         }
     };
     ChatRoom.prototype.notify = function (message, from, isPrivate) {
-        this.recipients.forEach(function (r) { return r.handleNotification(message, from, false); });
+        this.recipients.forEach(function (r) { return r.receive(message, from, false); });
         console.log();
     };
     ChatRoom.prototype.register = function (person) {
