@@ -5,6 +5,7 @@ class Game {
   private numberOfAllowedAttempts: number;
   private gameOver: boolean;
   supportUndo: boolean;
+  message: string;
 
   constructor() {
     this.word = "SECRET";
@@ -17,46 +18,43 @@ class Game {
 
   processGuess(guess: string) {
     if (guess.length !== 1) {
-      console.log("One letter at a time, please"); //change this to a property
+      this.message = "One letter at a time, please";
       return;
     }
     guess = guess.toUpperCase();
     if (!/^[a-zA-Z\-]+$/.test(guess)) {
-      console.log("alphabetic characters only, please");
+      this.message = "alphabetic characters only, please";
       return;
     }
     if (this.guesses.indexOf(guess) >= 0) {
-      console.log(`already guessed ${guess}. Try again`);
+      this.message = `already guessed ${guess}. Try again`;
       return;
     }
 
     this.guesses.push(guess);
-    let displayed = this.currentPuzzleState() as string;
-
+    
     if (this.word.indexOf(guess) >= 0) {
-      console.log("Good guess!");
-      if (displayed.indexOf("_") < 0) {
-        console.log(`Victory! With only ${this.numberOfErrors} errors!`);
+      this.message = "Good guess!";
+      if (this.currentPuzzleState().indexOf("_") < 0) {
+        this.message = `Victory! With only ${this.numberOfErrors} errors!`;
         this.gameOver = true;
       }
     } else {
       this.numberOfErrors++;
-      console.log(
-        `bad guess! This word contains no ${guess}. You have ${this.attemptsLeft()} guesses left`
-      );
+      this.message = `bad guess! This word contains no ${guess}. You have ${this.attemptsLeft()} guesses left`;
       if (this.attemptsLeft() === 0) {
         this.gameOver = true;
-        console.log(`You lost. The word was: ${this.word.toUpperCase()}`);
+        this.message = `You lost. The word was: ${this.word.toUpperCase()}`;
       }
     }
-    console.log(displayed);
+    console.log(this.currentPuzzleState());
   }
 
   private attemptsLeft(): number {
     return this.numberOfAllowedAttempts - this.numberOfErrors;
   }
 
-  private currentPuzzleState(): string {
+  currentPuzzleState(): string {
     let result = "";
     for (let i = 0; i < this.word.length; i++) {
       if (this.guesses.indexOf(this.word[i].toString()) >= 0) {
@@ -122,5 +120,6 @@ while (!g2.gameIsOver()) {
   } else {
     mementos.push(g2.createCheckPoint());
     g2.processGuess(input);
+    console.log(g2.message);
   }
 }
