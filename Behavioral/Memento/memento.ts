@@ -1,3 +1,7 @@
+//inspired by: https://www.pluralsight.com/courses/c-sharp-design-patterns-memento
+//maybe re-do to wordle
+//The class provides a snapshot of its private state since it already has access to it
+//Command focuses at actions, Memento focuses on state
 class Game {
   private word: string;
   guesses: string[];
@@ -11,8 +15,7 @@ class Game {
     this.word = "SECRET";
     this.guesses = [];
     this.numberOfErrors = 0;
-    this.numberOfAllowedAttempts = 6;
-    console.log(this.currentPuzzleState());
+    this.numberOfAllowedAttempts = 3;
     this.supportUndo = false;
   }
 
@@ -109,19 +112,28 @@ let input = ".";
 let g2 = new GameWithUndo();
 
 let mementos = [] as Array<Memento>;
+mementos.push(g2.createCheckPoint());
+console.log("Puzzle is: ", g2.currentPuzzleState());
 
 while (!g2.gameIsOver()) {
   //this main program is the CareTaker
   input = prompt("enter a letter, or '-' to undo");
   console.log("Input: ", input);
-  if (input === "-" && mementos.length > 1) {
-    mementos.pop();
-    g2.processCheckPoint(mementos[mementos.length - 1]);
+  if (input === "-") {
+    if (mementos.length > 1) {
+      console.log("undoing...");
+      let p = mementos.pop();
+      let m = mementos[mementos.length - 1];
+      g2.processCheckPoint(m);
+      console.log(g2.currentPuzzleState());
+    } else {
+      console.log("cannot undo anymore");
+    }
   } else {
     g2.processGuess(input);
     let m = g2.createCheckPoint();
-    console.log(m.guesses);
     mementos.push(m);
+
     console.log(g2.message);
     console.log(g2.currentPuzzleState());
   }
