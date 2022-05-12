@@ -32,7 +32,7 @@ class Game {
     }
 
     this.guesses.push(guess);
-    
+
     if (this.word.indexOf(guess) >= 0) {
       this.message = "Good guess!";
       if (this.currentPuzzleState().indexOf("_") < 0) {
@@ -47,7 +47,7 @@ class Game {
         this.message = `You lost. The word was: ${this.word.toUpperCase()}`;
       }
     }
-    console.log(this.currentPuzzleState());
+    //console.log(this.currentPuzzleState());
   }
 
   private attemptsLeft(): number {
@@ -87,7 +87,7 @@ class GameWithUndo extends Game {
     console.log("undo supported!");
   }
   public createCheckPoint(): Memento {
-    return new Memento(this.guesses, this.numberOfErrors);
+    return new Memento([...this.guesses], this.numberOfErrors);
   }
 
   public processCheckPoint(checkPoint: Memento): void {
@@ -118,8 +118,11 @@ while (!g2.gameIsOver()) {
     mementos.pop();
     g2.processCheckPoint(mementos[mementos.length - 1]);
   } else {
-    mementos.push(g2.createCheckPoint());
     g2.processGuess(input);
+    let m = g2.createCheckPoint();
+    console.log(m.guesses);
+    mementos.push(m);
     console.log(g2.message);
+    console.log(g2.currentPuzzleState());
   }
 }
