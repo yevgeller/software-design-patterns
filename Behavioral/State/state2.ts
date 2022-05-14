@@ -10,6 +10,7 @@ class SupportTicket {
   constructor(id: string = "N/A", description: string = "N/A") {
     this.id = id;
     this.description = description;
+    console.log(`Created support ticket ${this.id}.`);
     this.currentState = new SupportTicketState_New(this);
   }
   assignTechnician(techName: string) {
@@ -61,7 +62,7 @@ class SupportTicketState_New extends SupportTicketState {
   }
   moveBack(): void {
     console.log(
-      `Move back: Ticket ${this.ticket.id} is in the 'New' status. Cannot move back because there is no state prior to New`
+      `Move back: Ticket ${this.ticket.id} is in the 'New' status. Cannot move back because there is no state prior to New.`
     );
   }
 }
@@ -87,8 +88,7 @@ class SupportTicketState_TechnicianAssigned extends SupportTicketState {
   }
   resolve(result: boolean, resolutionComment: string) {
     console.log(
-      `Resolve: Ticket ${this.ticket.id} is in the 'Technician Assigned' state. 
-        It can either have a QA assigned or be moved back to 'New'`
+      `Resolve: Ticket ${this.ticket.id} is in the 'Technician Assigned' state. It can either have a QA assigned or be moved back to 'New'`
     );
   }
   summary(): void {
