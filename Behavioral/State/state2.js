@@ -47,24 +47,22 @@ var SupportTicketState_New = /** @class */ (function (_super) {
     function SupportTicketState_New(ticket) {
         var _this = _super.call(this) || this;
         _this.ticket = ticket;
-        console.log("Support ticket ".concat(_this.ticket.id, " is now in New state"));
+        console.log("Support ticket ".concat(_this.ticket.id, " is now in New state."));
         return _this;
     }
     SupportTicketState_New.prototype.assignTechnician = function (techName) {
         this.ticket.assignedTechnician = techName;
+        console.log("Ticket ".concat(this.ticket.id, " has been assigned a QA tech: ").concat(techName, "."));
         this.ticket.currentState = new SupportTicketState_TechnicianAssigned(this.ticket);
     };
     SupportTicketState_New.prototype.assignQA = function (qaName) {
-        console.log("Assign QA: Cannot assign QA while ticket is New");
+        console.log("Assign QA: Cannot assign QA while ticket is New.");
     };
     SupportTicketState_New.prototype.resolve = function (result, resolutionComment) {
-        console.log("Resolve: Ticket ".concat(this.ticket.id, " is in the 'New' status. Cannot resolve a new ticket"));
-    };
-    SupportTicketState_New.prototype.summary = function () {
-        console.log("Support ticket ".concat(this.ticket.id, " created."));
+        console.log("Resolve: Ticket ".concat(this.ticket.id, " is in the 'New' status. Cannot resolve a new ticket."));
     };
     SupportTicketState_New.prototype.moveBack = function () {
-        console.log("Move back: Ticket ".concat(this.ticket.id, " is in the 'New' status. Cannot move back because there is no state prior to New"));
+        console.log("Move back: Ticket ".concat(this.ticket.id, " is in the 'New' status. Cannot move back because there is no state prior to New."));
     };
     return SupportTicketState_New;
 }(SupportTicketState));
@@ -73,11 +71,11 @@ var SupportTicketState_TechnicianAssigned = /** @class */ (function (_super) {
     function SupportTicketState_TechnicianAssigned(ticket) {
         var _this = _super.call(this) || this;
         _this.ticket = ticket;
-        console.log("Support ticket ".concat(_this.ticket.id, " is now in 'Technician Assigned' state"));
+        console.log("Support ticket ".concat(_this.ticket.id, " is now in 'Technician Assigned' state."));
         return _this;
     }
     SupportTicketState_TechnicianAssigned.prototype.assignTechnician = function (techName) {
-        console.log("Assign Tech: Technician ".concat(this.ticket.assignedTechnician, " is already assigned on ticket ").concat(this.ticket.id));
+        console.log("Assign Tech: Technician ".concat(this.ticket.assignedTechnician, " is already assigned on ticket ").concat(this.ticket.id, "."));
     };
     SupportTicketState_TechnicianAssigned.prototype.assignQA = function (qaName) {
         this.ticket.assignedQA = qaName;
@@ -85,10 +83,7 @@ var SupportTicketState_TechnicianAssigned = /** @class */ (function (_super) {
         this.ticket.currentState = new SupportTicketState_QAReview(this.ticket);
     };
     SupportTicketState_TechnicianAssigned.prototype.resolve = function (result, resolutionComment) {
-        console.log("Resolve: Ticket ".concat(this.ticket.id, " is in the 'Technician Assigned' state. It can either have a QA assigned or be moved back to 'New'"));
-    };
-    SupportTicketState_TechnicianAssigned.prototype.summary = function () {
-        throw new Error("Method not implemented.");
+        console.log("Resolve: Ticket ".concat(this.ticket.id, " is in the 'Technician Assigned' state. It can either have a QA assigned or be moved back to 'New'."));
     };
     SupportTicketState_TechnicianAssigned.prototype.moveBack = function () {
         console.log("Move back: Moving ticket ".concat(this.ticket.id, " from 'Technician Assigned' to 'New' state."));
@@ -102,23 +97,21 @@ var SupportTicketState_QAReview = /** @class */ (function (_super) {
     function SupportTicketState_QAReview(ticket) {
         var _this = _super.call(this) || this;
         _this.ticket = ticket;
-        console.log("Support ticket ".concat(_this.ticket.id, " is now in 'QA Review' state"));
+        console.log("Support ticket ".concat(_this.ticket.id, " is now in 'QA Review' state."));
         return _this;
     }
     SupportTicketState_QAReview.prototype.assignTechnician = function (techName) {
-        console.log("Assign Tech: Technician ".concat(this.ticket.assignedTechnician, " is already assigned on ticket ").concat(this.ticket.id));
+        console.log("Assign Tech: Technician ".concat(this.ticket.assignedTechnician, " is already assigned on ticket ").concat(this.ticket.id, "."));
     };
     SupportTicketState_QAReview.prototype.assignQA = function (qaName) {
-        console.log("Assign QA: QA Specialist ".concat(this.ticket.assignedQA, " is already assigned on ticket ").concat(this.ticket.id));
+        console.log("Assign QA: QA Specialist ".concat(this.ticket.assignedQA, " is already assigned on ticket ").concat(this.ticket.id, "."));
     };
     SupportTicketState_QAReview.prototype.resolve = function (result, resolutionComment) {
         if (resolutionComment === void 0) { resolutionComment = null; }
         this.ticket.isResolved = result;
         if (resolutionComment)
             this.ticket.resolutionComment = resolutionComment;
-    };
-    SupportTicketState_QAReview.prototype.summary = function () {
-        console.log("");
+        this.ticket.currentState = new SupportTicketState_Resolved(this.ticket);
     };
     SupportTicketState_QAReview.prototype.moveBack = function () {
         console.log("Move back: Moving ticket ".concat(this.ticket.id, " from 'QA Review' to 'Technician Assigned' state."));
@@ -134,21 +127,18 @@ var SupportTicketState_Resolved = /** @class */ (function (_super) {
         _this.ticket = ticket;
         console.log("Support ticket ".concat(_this.ticket.id, " is now in 'Resolved' state. Resolved successfully: ").concat(_this.ticket.isResolved, ", comment: ").concat(_this.ticket.resolutionComment
             ? _this.ticket.resolutionComment
-            : "No comment provided"));
+            : "No comment provided", "."));
         return _this;
     }
     SupportTicketState_Resolved.prototype.assignTechnician = function (techName) {
-        console.log("Assign Tech: Technician ".concat(this.ticket.assignedTechnician, " is already assigned on ticket ").concat(this.ticket.id));
+        console.log("Assign Tech: Technician ".concat(this.ticket.assignedTechnician, " is already assigned on ticket ").concat(this.ticket.id, "."));
     };
     SupportTicketState_Resolved.prototype.assignQA = function (qaName) {
-        console.log("QA Specialist ".concat(this.ticket.assignedQA, " is already assigned on ticket ").concat(this.ticket.id));
+        console.log("QA Specialist ".concat(this.ticket.assignedQA, " is already assigned on ticket ").concat(this.ticket.id, "."));
     };
     SupportTicketState_Resolved.prototype.resolve = function (result, resolutionComment) {
         if (resolutionComment === void 0) { resolutionComment = null; }
         console.log("Resolve: Ticket ".concat(this.ticket.id, " has already been resolved."));
-    };
-    SupportTicketState_Resolved.prototype.summary = function () {
-        console.log("");
     };
     SupportTicketState_Resolved.prototype.moveBack = function () {
         console.log("Move back: Moving ticket ".concat(this.ticket.id, " from 'Resolved' to 'QA Review' state."));
@@ -163,17 +153,17 @@ supportTicket1.moveBack(); //error
 //supportTicket1.assignTechnician("Jeff the Tech");
 supportTicket1.assignQA("Jane the QA");
 supportTicket1.resolve(true, "Finished successfully");
-console.log("--- Moving on to the next State ---");
+console.log("--- Moving to Tech Assigned State ---");
 supportTicket1.assignTechnician("Jeff the Tech");
 supportTicket1.assignTechnician("Jeff the Tech");
 //supportTicket1.assignQA("Jane the QA");
 supportTicket1.resolve(true, "Finished successfully");
-console.log("--- Moving on to the next State ---");
+console.log("--- Moving to QA Assigned State ---");
 supportTicket1.assignQA("Jane the QA");
 supportTicket1.assignTechnician("Jeff the Tech");
 supportTicket1.assignQA("Jane the QA");
 //supportTicket1.resolve(true, "Finished successfully");
-console.log("--- Moving on to the next State ---");
+console.log("--- Moving to Resolved State ---");
 supportTicket1.resolve(true, "Finished successfully");
 console.log("--- Moving all the way back to New State: ---");
 supportTicket1.moveBack();

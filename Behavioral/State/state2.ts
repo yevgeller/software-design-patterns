@@ -33,7 +33,6 @@ abstract class SupportTicketState {
   abstract assignTechnician(techName: string);
   abstract assignQA(qaName: string);
   abstract resolve(result: boolean, resolutionComment: string);
-  abstract summary(): void;
   abstract moveBack(): void;
 }
 
@@ -41,24 +40,24 @@ class SupportTicketState_New extends SupportTicketState {
   constructor(ticket: SupportTicket) {
     super();
     this.ticket = ticket;
-    console.log(`Support ticket ${this.ticket.id} is now in New state`);
+    console.log(`Support ticket ${this.ticket.id} is now in New state.`);
   }
   assignTechnician(techName: string) {
     this.ticket.assignedTechnician = techName;
+    console.log(
+      `Ticket ${this.ticket.id} has been assigned a QA tech: ${techName}.`
+    );
     this.ticket.currentState = new SupportTicketState_TechnicianAssigned(
       this.ticket
     );
   }
   assignQA(qaName: string) {
-    console.log("Assign QA: Cannot assign QA while ticket is New");
+    console.log("Assign QA: Cannot assign QA while ticket is New.");
   }
   resolve(result: boolean, resolutionComment: string) {
     console.log(
-      `Resolve: Ticket ${this.ticket.id} is in the 'New' status. Cannot resolve a new ticket`
+      `Resolve: Ticket ${this.ticket.id} is in the 'New' status. Cannot resolve a new ticket.`
     );
-  }
-  summary(): void {
-    console.log(`Support ticket ${this.ticket.id} created.`);
   }
   moveBack(): void {
     console.log(
@@ -71,12 +70,12 @@ class SupportTicketState_TechnicianAssigned extends SupportTicketState {
     super();
     this.ticket = ticket;
     console.log(
-      `Support ticket ${this.ticket.id} is now in \'Technician Assigned\' state`
+      `Support ticket ${this.ticket.id} is now in \'Technician Assigned\' state.`
     );
   }
   assignTechnician(techName: string) {
     console.log(
-      `Assign Tech: Technician ${this.ticket.assignedTechnician} is already assigned on ticket ${this.ticket.id}`
+      `Assign Tech: Technician ${this.ticket.assignedTechnician} is already assigned on ticket ${this.ticket.id}.`
     );
   }
   assignQA(qaName: string) {
@@ -88,11 +87,8 @@ class SupportTicketState_TechnicianAssigned extends SupportTicketState {
   }
   resolve(result: boolean, resolutionComment: string) {
     console.log(
-      `Resolve: Ticket ${this.ticket.id} is in the 'Technician Assigned' state. It can either have a QA assigned or be moved back to 'New'`
+      `Resolve: Ticket ${this.ticket.id} is in the 'Technician Assigned' state. It can either have a QA assigned or be moved back to 'New'.`
     );
-  }
-  summary(): void {
-    throw new Error("Method not implemented.");
   }
   moveBack(): void {
     console.log(
@@ -107,24 +103,22 @@ class SupportTicketState_QAReview extends SupportTicketState {
   constructor(ticket: SupportTicket) {
     super();
     this.ticket = ticket;
-    console.log(`Support ticket ${this.ticket.id} is now in 'QA Review' state`);
+    console.log(`Support ticket ${this.ticket.id} is now in 'QA Review' state.`);
   }
   assignTechnician(techName: string) {
     console.log(
-      `Assign Tech: Technician ${this.ticket.assignedTechnician} is already assigned on ticket ${this.ticket.id}`
+      `Assign Tech: Technician ${this.ticket.assignedTechnician} is already assigned on ticket ${this.ticket.id}.`
     );
   }
   assignQA(qaName: string) {
     console.log(
-      `Assign QA: QA Specialist ${this.ticket.assignedQA} is already assigned on ticket ${this.ticket.id}`
+      `Assign QA: QA Specialist ${this.ticket.assignedQA} is already assigned on ticket ${this.ticket.id}.`
     );
   }
   resolve(result: boolean, resolutionComment: string = null) {
     this.ticket.isResolved = result;
     if (resolutionComment) this.ticket.resolutionComment = resolutionComment;
-  }
-  summary(): void {
-    console.log(``);
+    this.ticket.currentState = new SupportTicketState_Resolved(this.ticket);
   }
   moveBack(): void {
     console.log(
@@ -149,24 +143,21 @@ class SupportTicketState_Resolved extends SupportTicketState {
         this.ticket.resolutionComment
           ? this.ticket.resolutionComment
           : "No comment provided"
-      }`
+      }.`
     );
   }
   assignTechnician(techName: string) {
     console.log(
-      `Assign Tech: Technician ${this.ticket.assignedTechnician} is already assigned on ticket ${this.ticket.id}`
+      `Assign Tech: Technician ${this.ticket.assignedTechnician} is already assigned on ticket ${this.ticket.id}.`
     );
   }
   assignQA(qaName: string) {
     console.log(
-      `QA Specialist ${this.ticket.assignedQA} is already assigned on ticket ${this.ticket.id}`
+      `QA Specialist ${this.ticket.assignedQA} is already assigned on ticket ${this.ticket.id}.`
     );
   }
   resolve(result: boolean, resolutionComment: string = null) {
     console.log(`Resolve: Ticket ${this.ticket.id} has already been resolved.`);
-  }
-  summary(): void {
-    console.log(``);
   }
   moveBack(): void {
     console.log(
@@ -184,20 +175,20 @@ supportTicket1.moveBack(); //error
 //supportTicket1.assignTechnician("Jeff the Tech");
 supportTicket1.assignQA("Jane the QA");
 supportTicket1.resolve(true, "Finished successfully");
-console.log("--- Moving on to the next State ---");
+console.log("--- Moving to Tech Assigned State ---");
 
 supportTicket1.assignTechnician("Jeff the Tech");
 
 supportTicket1.assignTechnician("Jeff the Tech");
 //supportTicket1.assignQA("Jane the QA");
 supportTicket1.resolve(true, "Finished successfully");
-console.log("--- Moving on to the next State ---");
+console.log("--- Moving to QA Assigned State ---");
 supportTicket1.assignQA("Jane the QA");
 
 supportTicket1.assignTechnician("Jeff the Tech");
 supportTicket1.assignQA("Jane the QA");
 //supportTicket1.resolve(true, "Finished successfully");
-console.log("--- Moving on to the next State ---");
+console.log("--- Moving to Resolved State ---");
 supportTicket1.resolve(true, "Finished successfully");
 
 console.log("--- Moving all the way back to New State: ---");
