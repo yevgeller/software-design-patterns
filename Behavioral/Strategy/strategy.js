@@ -35,8 +35,8 @@ var Strategy;
         };
         return Context;
     }());
-    var Game = /** @class */ (function () {
-        function Game(preferredNotificationMethod) {
+    var NotificationService = /** @class */ (function () {
+        function NotificationService(preferredNotificationMethod) {
             this.context = new Context();
             switch (preferredNotificationMethod.toLowerCase()) {
                 case "sms":
@@ -50,15 +50,15 @@ var Strategy;
                     break;
             }
         }
-        Game.prototype.notify = function () {
+        NotificationService.prototype.notify = function () {
             return this.context.executeStrategy();
         };
-        return Game;
+        return NotificationService;
     }());
-    var text = new Game("sms");
+    var text = new NotificationService("sms");
     console.log("Notification via SMS: ", text.notify());
-    //   let trick = new Game("trick");
-    //   console.log("Trick strategy's move: ", trick.makeAMove());
-    //   let nepotism = new Game("nepotism");
-    //   console.log("Nepotims strategy's move: ", nepotism.makeAMove());
+    var call = new NotificationService("call");
+    console.log("Notification via a call: ", call.notify());
+    var email = new NotificationService("email");
+    console.log("Notification via email: ", email.notify());
 })(Strategy || (Strategy = {}));

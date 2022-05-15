@@ -32,7 +32,7 @@ namespace Strategy {
     }
   }
 
-  class Game {
+  class NotificationService {
     private context: Context;
     constructor(preferredNotificationMethod: string) {
       this.context = new Context();
@@ -54,12 +54,12 @@ namespace Strategy {
     }
   }
 
-  let text = new Game("sms");
+  let text = new NotificationService("sms");
   console.log("Notification via SMS: ", text.notify());
 
-  //   let trick = new Game("trick");
-  //   console.log("Trick strategy's move: ", trick.makeAMove());
+  let call = new NotificationService("call");
+  console.log("Notification via a call: ", call.notify());
 
-  //   let nepotism = new Game("nepotism");
-  //   console.log("Nepotims strategy's move: ", nepotism.makeAMove());
+  let email = new NotificationService("email");
+  console.log("Notification via email: ", email.notify());
 }
