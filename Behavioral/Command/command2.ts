@@ -107,25 +107,7 @@ namespace Command2 {
         );
         return false;
       }
-      /*
-      let truckInArray = repository.trucks.filter((t) => t.id === this.truckId);
-      if (truckInArray.length === 0) {
-        console.log(
-          "no truck with such id. Cannot load shipment on a non-existent truck"
-        );
-        return false;
-      }
-      let truck = truckInArray[0];
-      if (
-        truck.totalWeightSoFar() + this.shipment.weight >
-        truck.weightCapacity
-      ) {
-        console.log(
-          "This shipment will overload the truck. cannot load shipment on this truck"
-        );
-        return false;
-      }
-*/
+      //...more checks as needed
       return true;
     }
     undo(): void {
