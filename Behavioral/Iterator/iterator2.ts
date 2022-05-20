@@ -1,8 +1,4 @@
 namespace IngredientIterator {
-  interface IIngredientEnumerable {
-    getEnumerator(): IIngredientIterator;
-  }
-
   class Ingredient {
     name: string;
     isDry: boolean;
@@ -43,7 +39,7 @@ namespace IngredientIterator {
     }
     printRecipe(): void {
       console.log(this.dishName.toUpperCase());
-      let ingrenum = this.ingredients.getEnumerator();
+      let ingrenum = this.ingredients.getIterator();
       console.log("\nINGREDIENTS:");
       while (ingrenum.hasNext()) {
         console.log(ingrenum.next().displayIngredient());
@@ -56,25 +52,29 @@ namespace IngredientIterator {
     }
   }
 
-  interface IIngredientIterator {
-    next(): Ingredient;
-    hasNext(): boolean;
-    currentItem: Ingredient;
+  interface IIngredientIterable {
+    getIterator(): IIngredientIterator;
   }
 
-  class IngredientsCollection implements IIngredientEnumerable {
+  class IngredientsCollection implements IIngredientIterable {
     private allIngredients: Array<Ingredient>;
     constructor(allIngredients: Array<Ingredient>) {
       if (allIngredients === undefined || allIngredients.length === 0)
         throw new Error("Cannot iterate over empty ingredient collection");
       this.allIngredients = allIngredients;
     }
-    getEnumerator(): IIngredientIterator {
-      return new IngredientEnumerator(this.allIngredients);
+    getIterator(): IIngredientIterator {
+      return new IngredientIterator(this.allIngredients);
     }
   }
 
-  class IngredientEnumerator implements IIngredientIterator {
+  interface IIngredientIterator {
+    next(): Ingredient;
+    hasNext(): boolean;
+    currentItem: Ingredient;
+  }
+
+  class IngredientIterator implements IIngredientIterator {
     private allIngredients: Array<Ingredient>;
     private currentIndex: number;
     currentItem: Ingredient;
@@ -109,6 +109,8 @@ namespace IngredientIterator {
       this.allIngredients.push(...sorted);
     }
   }
+
+  
   let ingrFlour = new Ingredient("flour", true, "cup", "1.5");
   let ingrSugar = new Ingredient("sugar", true, "cup", "0.5");
   let ingrBakingPowder = new Ingredient("baking powder", true, "tsp", "1.5");

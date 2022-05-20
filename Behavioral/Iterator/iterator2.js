@@ -1,5 +1,5 @@
 var IngredientIterator;
-(function (IngredientIterator) {
+(function (IngredientIterator_1) {
     var Ingredient = /** @class */ (function () {
         function Ingredient(name, isDry, unitOfMeasure, units) {
             var _this = this;
@@ -23,7 +23,7 @@ var IngredientIterator;
         }
         Recipe.prototype.printRecipe = function () {
             console.log(this.dishName.toUpperCase());
-            var ingrenum = this.ingredients.getEnumerator();
+            var ingrenum = this.ingredients.getIterator();
             console.log("\nINGREDIENTS:");
             while (ingrenum.hasNext()) {
                 console.log(ingrenum.next().displayIngredient());
@@ -42,29 +42,29 @@ var IngredientIterator;
                 throw new Error("Cannot iterate over empty ingredient collection");
             this.allIngredients = allIngredients;
         }
-        IngredientsCollection.prototype.getEnumerator = function () {
-            return new IngredientEnumerator(this.allIngredients);
+        IngredientsCollection.prototype.getIterator = function () {
+            return new IngredientIterator(this.allIngredients);
         };
         return IngredientsCollection;
     }());
-    var IngredientEnumerator = /** @class */ (function () {
-        function IngredientEnumerator(allIngredients) {
+    var IngredientIterator = /** @class */ (function () {
+        function IngredientIterator(allIngredients) {
             this.allIngredients = allIngredients;
             this.sortIngredientsByTypeThenName();
             this.currentIndex = 0;
             this.currentItem = allIngredients[0];
         }
-        IngredientEnumerator.prototype.next = function () {
+        IngredientIterator.prototype.next = function () {
             if (!this.hasNext())
                 return null;
             this.currentIndex++;
             this.currentItem = this.allIngredients[this.currentIndex];
             return this.currentItem;
         };
-        IngredientEnumerator.prototype.hasNext = function () {
+        IngredientIterator.prototype.hasNext = function () {
             return this.currentIndex < this.allIngredients.length - 1;
         };
-        IngredientEnumerator.prototype.sortIngredientsByTypeThenName = function () {
+        IngredientIterator.prototype.sortIngredientsByTypeThenName = function () {
             var _a;
             var sorted = this.allIngredients.filter(function (x) { return x.isDry == true; });
             sorted.sort(function (a, b) { return (a.name > b.name ? 1 : a.name < b.name ? -1 : 0); });
@@ -76,7 +76,7 @@ var IngredientIterator;
             this.allIngredients.length = 0;
             (_a = this.allIngredients).push.apply(_a, sorted);
         };
-        return IngredientEnumerator;
+        return IngredientIterator;
     }());
     var ingrFlour = new Ingredient("flour", true, "cup", "1.5");
     var ingrSugar = new Ingredient("sugar", true, "cup", "0.5");
