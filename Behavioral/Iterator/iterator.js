@@ -1,9 +1,8 @@
-//class IngredientCollection
 var FibonacciSequence = /** @class */ (function () {
     function FibonacciSequence(numberOfDigits) {
         this.numberOfDigits = numberOfDigits;
     }
-    FibonacciSequence.prototype.getEnumerator = function () {
+    FibonacciSequence.prototype.getIterator = function () {
         return new FibonacciEnumerator(this.numberOfDigits);
     };
     return FibonacciSequence;
@@ -21,7 +20,6 @@ var FibonacciEnumerator = /** @class */ (function () {
         this.previousTotal = this.currentTotal;
         this.currentTotal = newTotal;
         this.currentPosition++;
-        //console.log("currentPosition:", this.currentPosition);
         return this.currentPosition <= this.numberOfDigits;
     };
     FibonacciEnumerator.prototype.reset = function () {
@@ -32,8 +30,10 @@ var FibonacciEnumerator = /** @class */ (function () {
     return FibonacciEnumerator;
 }());
 var f = new FibonacciSequence(10);
-var e = f.getEnumerator();
+var e = f.getIterator();
+var output = "Result: ";
 while (e.moveNext()) {
-    console.log(e.current());
+    output += e.current() + " ";
 }
+console.log(output);
 //https://app.pluralsight.com/library/courses/design-patterns-on-ramp/table-of-contents

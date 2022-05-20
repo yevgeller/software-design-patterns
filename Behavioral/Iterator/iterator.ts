@@ -1,23 +1,23 @@
-interface IEnumerable {
-  getEnumerator(): IEnumerator;
+interface IIterable {
+  getIterator(): IIterator;
 }
 
-interface IEnumerator {
-  current(): number;
-  moveNext(): boolean;
-}
-//class IngredientCollection
-class FibonacciSequence implements IEnumerable {
+class FibonacciSequence implements IIterable {
+  //container
   numberOfDigits: number;
   constructor(numberOfDigits: number) {
     this.numberOfDigits = numberOfDigits;
   }
-  getEnumerator(): IEnumerator {
+  getIterator(): IIterator {
     return new FibonacciEnumerator(this.numberOfDigits);
   }
 }
 
-class FibonacciEnumerator implements IEnumerator {
+interface IIterator {
+  current(): number;
+  moveNext(): boolean;
+}
+class FibonacciEnumerator implements IIterator {
   numberOfDigits: number;
   currentPosition: number;
   previousTotal: number;
@@ -45,9 +45,10 @@ class FibonacciEnumerator implements IEnumerator {
 }
 
 let f = new FibonacciSequence(10);
-let e = f.getEnumerator();
+let e = f.getIterator();
+let output = "Result: ";
 while (e.moveNext()) {
-  console.log(e.current());
+  output += e.current() + " ";
 }
-
+console.log(output);
 //https://app.pluralsight.com/library/courses/design-patterns-on-ramp/table-of-contents
