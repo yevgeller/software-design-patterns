@@ -100,16 +100,8 @@ class GameWithUndo extends Game {
   }
 }
 
-let g = new Game(); //Originator
 let input = ".";
-// while (!g.gameIsOver()) {
-//   //this main program is the CareTaker
-//   input = prompt("enter a letter");
-//   console.log("Input: ", input);
-//   g.processGuess(input);
-// }
-
-let g2 = new GameWithUndo();
+let g2 = new GameWithUndo(); //originator
 
 let mementos = [] as Array<Memento>;
 mementos.push(g2.createCheckPoint());
