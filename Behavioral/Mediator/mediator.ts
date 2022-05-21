@@ -13,10 +13,10 @@ interface IChildCommunicator {
 class Mother implements IParentCommunicator {
   constructor() {}
   saySomethingToDaughter(): void {
-    throw new Error("Method not implemented.");
+    //...
   }
   saySomethingToSpouse(): void {
-    throw new Error("Method not implemented.");
+    //...
   }
   saySomethingToSon(): void {}
 }
@@ -24,35 +24,35 @@ class Mother implements IParentCommunicator {
 class Father implements IParentCommunicator {
   constructor() {}
   saySomethingToDaughter(): void {
-    throw new Error("Method not implemented.");
+    //...
   }
   saySomethingToSpouse(): void {
-    throw new Error("Method not implemented.");
+    //...
   }
   saySomethingToSon(): void {}
 }
 
 class Son implements IChildCommunicator {
   saySomethingToMother(): void {
-    throw new Error("Method not implemented.");
+    //...
   }
   saySomethingToFather(): void {
-    throw new Error("Method not implemented.");
+    //...
   }
   saySomethingToOtherSibling(): void {
-    throw new Error("Method not implemented.");
+    //...
   }
 }
 
 class Daughter implements IChildCommunicator {
   saySomethingToMother(): void {
-    throw new Error("Method not implemented.");
+    //...
   }
   saySomethingToFather(): void {
-    throw new Error("Method not implemented.");
+    //...
   }
   saySomethingToOtherSibling(): void {
-    throw new Error("Method not implemented.");
+    //...
   }
 }
 //------------------------- Mediator:

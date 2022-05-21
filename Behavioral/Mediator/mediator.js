@@ -2,10 +2,10 @@ var Mother = /** @class */ (function () {
     function Mother() {
     }
     Mother.prototype.saySomethingToDaughter = function () {
-        throw new Error("Method not implemented.");
+        //...
     };
     Mother.prototype.saySomethingToSpouse = function () {
-        throw new Error("Method not implemented.");
+        //...
     };
     Mother.prototype.saySomethingToSon = function () { };
     return Mother;
@@ -14,10 +14,10 @@ var Father = /** @class */ (function () {
     function Father() {
     }
     Father.prototype.saySomethingToDaughter = function () {
-        throw new Error("Method not implemented.");
+        //...
     };
     Father.prototype.saySomethingToSpouse = function () {
-        throw new Error("Method not implemented.");
+        //...
     };
     Father.prototype.saySomethingToSon = function () { };
     return Father;
@@ -26,13 +26,13 @@ var Son = /** @class */ (function () {
     function Son() {
     }
     Son.prototype.saySomethingToMother = function () {
-        throw new Error("Method not implemented.");
+        //...
     };
     Son.prototype.saySomethingToFather = function () {
-        throw new Error("Method not implemented.");
+        //...
     };
     Son.prototype.saySomethingToOtherSibling = function () {
-        throw new Error("Method not implemented.");
+        //...
     };
     return Son;
 }());
@@ -40,13 +40,13 @@ var Daughter = /** @class */ (function () {
     function Daughter() {
     }
     Daughter.prototype.saySomethingToMother = function () {
-        throw new Error("Method not implemented.");
+        //...
     };
     Daughter.prototype.saySomethingToFather = function () {
-        throw new Error("Method not implemented.");
+        //...
     };
     Daughter.prototype.saySomethingToOtherSibling = function () {
-        throw new Error("Method not implemented.");
+        //...
     };
     return Daughter;
 }());
