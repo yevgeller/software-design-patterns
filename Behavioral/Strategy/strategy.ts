@@ -5,19 +5,19 @@ namespace Strategy {
 
   class SMS implements Strategy {
     notify(): string {
-      return "Notified via Short Message Service (SMS).";
+      return "Notified via Short Message Service (SMS) using Twilio.";
     }
   }
 
   class PhoneCall implements Strategy {
     notify(): string {
-      return "Notified via a phone call.";
+      return "Notified via a phone call using some robot service.";
     }
   }
 
   class Email implements Strategy {
     notify(): string {
-      return "Notified via an e-mail.";
+      return "Notified via an e-mail via an e-mail relay.";
     }
   }
 

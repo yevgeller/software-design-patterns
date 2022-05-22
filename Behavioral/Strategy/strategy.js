@@ -4,7 +4,7 @@ var Strategy;
         function SMS() {
         }
         SMS.prototype.notify = function () {
-            return "Notified via Short Message Service (SMS).";
+            return "Notified via Short Message Service (SMS) using Twilio.";
         };
         return SMS;
     }());
@@ -12,7 +12,7 @@ var Strategy;
         function PhoneCall() {
         }
         PhoneCall.prototype.notify = function () {
-            return "Notified via a phone call.";
+            return "Notified via a phone call using some robot service.";
         };
         return PhoneCall;
     }());
@@ -20,7 +20,7 @@ var Strategy;
         function Email() {
         }
         Email.prototype.notify = function () {
-            return "Notified via an e-mail.";
+            return "Notified via an e-mail via an e-mail relay.";
         };
         return Email;
     }());
