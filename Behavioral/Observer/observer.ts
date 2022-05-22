@@ -77,7 +77,9 @@ namespace Observer {
     id: number;
     receiveDisasterNotification(disaster: Disaster): void {
       console.log(
-        `Fire Brigade ${this.id} has been notified about ${disaster.disasterType}`
+        `Fire Brigade ${this.id} has been notified about ${
+          DisasterType[disaster.disasterType]
+        }`
       );
     }
     constructor() {
@@ -88,7 +90,9 @@ namespace Observer {
     id: number;
     receiveDisasterNotification(disaster: Disaster): void {
       console.log(
-        `Police Squad ${this.id} has been notified about ${disaster.disasterType}`
+        `Police Squad ${this.id} has been notified about ${
+          DisasterType[disaster.disasterType]
+        }`
       );
     }
     constructor() {
@@ -99,7 +103,9 @@ namespace Observer {
     id: number;
     receiveDisasterNotification(disaster: Disaster): void {
       console.log(
-        `Ambulance Crew ${this.id} has been notified about ${disaster.disasterType}`
+        `Ambulance Crew ${this.id} has been notified about ${
+          DisasterType[disaster.disasterType]
+        }`
       );
     }
     constructor() {

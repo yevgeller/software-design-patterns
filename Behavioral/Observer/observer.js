@@ -78,7 +78,7 @@ var Observer;
             this.id = 1;
         }
         FireBrigade.prototype.receiveDisasterNotification = function (disaster) {
-            console.log("Fire Brigade ".concat(this.id, " has been notified about ").concat(disaster.disasterType));
+            console.log("Fire Brigade ".concat(this.id, " has been notified about ").concat(DisasterType[disaster.disasterType]));
         };
         return FireBrigade;
     }());
@@ -87,7 +87,7 @@ var Observer;
             this.id = 2;
         }
         PoliceSquad.prototype.receiveDisasterNotification = function (disaster) {
-            console.log("Police Squad ".concat(this.id, " has been notified about ").concat(disaster.disasterType));
+            console.log("Police Squad ".concat(this.id, " has been notified about ").concat(DisasterType[disaster.disasterType]));
         };
         return PoliceSquad;
     }());
@@ -96,7 +96,7 @@ var Observer;
             this.id = 3;
         }
         AmbulanceCrew.prototype.receiveDisasterNotification = function (disaster) {
-            console.log("Ambulance Crew ".concat(this.id, " has been notified about ").concat(disaster.disasterType));
+            console.log("Ambulance Crew ".concat(this.id, " has been notified about ").concat(DisasterType[disaster.disasterType]));
         };
         return AmbulanceCrew;
     }());
