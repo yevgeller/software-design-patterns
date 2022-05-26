@@ -51,7 +51,8 @@ class OracleToEFExpression implements Expression {
         properties.forEach(element => {
             let name = this.extractName(element)
             let type = this.extractType(element)
-            let specifiedDefaultValue = this.extractDefaultConstraint(element)
+            let specifiedDefaultValue = this.extractDefaultConstraint(element);
+            let determinedDefault = this.convertDefaultValue(specifiedDefaultValue, type);
             context.output += `public ${type} ${name} { get; set; }`;
             //commit, print out each line
             //figure out eslint setting on the other computer
@@ -92,5 +93,18 @@ class OracleToEFExpression implements Expression {
         if (defaultConstraintStartsAt < 0)
             return '';
         return input.substring(defaultConstraintStartsAt, input.length);
+    }
+
+    convertDefaultValue(input: string, determinedDataType: string): string {
+        if (input.trim().length === 0)
+            return '';
+        if (determinedDataType === 'string')
+            return 'string.Empty;'
+        if (determinedDataType === 'int')
+            return input;
+        if (determinedDataType === 'bool')
+            return input.indexOf('0') >= 0 ? 'false' : 'true';
+
+        return '';
     }
 }
